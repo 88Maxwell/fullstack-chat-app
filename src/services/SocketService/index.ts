@@ -1,6 +1,6 @@
-export  { SocketService } from "./SocketService"
+export { default as SocketService } from "./SocketService";
 
 export type {
-    EmitMessageParams,
-    OnMessageParams
-} from "./SocketServiceApiTypes"
+  EmitMessageParams,
+  OnMessageParams,
+} from "./SocketServiceApiTypes";

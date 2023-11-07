@@ -1,11 +1,9 @@
-
 import { configureStore } from "@reduxjs/toolkit";
 import { createCombinedReducer } from "./createCombinedReducer";
 import { getSocketServiceMiddleware } from "../middlewares";
 
-
 export function createPersistedStore() {
-  const {rootReducer} = createCombinedReducer()
+  const { rootReducer } = createCombinedReducer();
   const store = configureStore({
     reducer    : rootReducer,
     middleware : (getDefaultMiddleware) => {

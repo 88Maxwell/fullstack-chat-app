@@ -4,7 +4,9 @@ import { Provider as ReduxProvider } from "react-redux";
 
 function App() {
   return (
-    <ReduxProvider store={store}><ChatPage/></ReduxProvider>
+    <ReduxProvider store={store}>
+      <ChatPage />
+    </ReduxProvider>
   );
 }
 

@@ -1,10 +1,10 @@
 // listeners message
 export interface OnMessageParams {
-    text: string;    
+  text: string;
 }
 
-// emit listeners 
+// emit listeners
 export interface EmitMessageParams {
-    text: string;
-    userId: string;
+  text: string;
+  userId: string;
 }

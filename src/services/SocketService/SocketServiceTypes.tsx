@@ -1,9 +1,9 @@
-export type Cb<T> = (params: T) => void
+export type Cb<T> = (params: T) => void;
 
 export interface OnMessageParams {
-    text: string;    
+  text: string;
 }
 
 export type EventsToEmit = "message";
 export type EventsToListen = "message";
-export type AnyCallback = (...args: any[]) => void;
+export type AnyCallback = (...args: unknown[]) => void;
