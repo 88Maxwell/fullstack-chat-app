@@ -1,0 +1,29 @@
+@import "src/desktop/assets/styles/reset";
+
+:root {
+  --primary: #8e8cf0;
+  
+  --secondary: #3c3c84;
+  
+  --tertiary: #bb6bd9;
+  
+  --success: #219653;
+  
+  --error: #e40d15;
+  
+  --warning: #f2994a;
+  
+  --typography: #828282;
+  
+  --star: #f2c94c;
+  
+  --chart: #56ccf2;
+  
+  --white-with-opacity-5: rgba(255, 255, 255, 0.05);
+  --white-with-opacity-15: rgba(255, 255, 255, 0.15);
+  --white-with-opacity-25: rgba(255, 255, 255, 0.25);
+
+  --gradient-pink-right-part: #f2994a;
+  --gradient-pink-left-part: #6a4dbc;
+  --gradient-pink-base: linear-gradient(90.6deg, #6a4dbc 0.47%, #f2994a 137.94%);
+}
