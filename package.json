@@ -1,7 +1,7 @@
 {
   "name": "codefinity-test-task",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
+    "clsx": "^2.0.0",
     "consola": "^3.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
