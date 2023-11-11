@@ -20,19 +20,10 @@ export interface IMessage {
   fileLink?: string;
   webLink?: string;
 }
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  companyId?: string;
-  companyName?: string;
-  avatar?: string;
-}
-export enum SocketEventName {
-  connection = "connection",
-  disconnect = "disconnect",
-  signIn = "sign-in",
-  message = "message",
-  channelBroadcast = "channel-broadcast",
-  onlineUsers = "online-users",
-}
+export type SocketEventName =
+   "connection" |
+   "disconnect" |
+   "sign-in" |
+   "message" |
+   "channel-broadcast" |
+   "online-users";

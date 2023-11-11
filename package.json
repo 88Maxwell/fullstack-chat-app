@@ -1,10 +1,11 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "vite",
+    "start": "cowsay lol",
+    "start:client": "npm run -w @chat-app/client start",
+    "start:server": "npm run -w @chat-app/server start",
     "build": "tsc && vite build",
     "lint": "eslint src --color",
     "lint:fix": "eslint src --color --fix",
@@ -14,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/client",
-    "packages/server"
+    "packages/*"
   ]
 }
