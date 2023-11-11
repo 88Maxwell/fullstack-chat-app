@@ -1,5 +1,5 @@
 import { store } from "app/store";
-import ChatPage from "domains/chat/ChatPage";
+import ChatPage from "domains/chat/pages/ChatPage";
 import { Provider as ReduxProvider } from "react-redux";
 import "../app.scss";
 

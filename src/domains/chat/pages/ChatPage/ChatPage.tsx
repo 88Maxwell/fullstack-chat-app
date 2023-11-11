@@ -1,28 +1,24 @@
 import Button from "domains/common/components/Button";
+import UserProfileSection from "domains/user/components/UserProfileSection/UserProfileSection";
+import ChatList from "domains/chat/components/ChatList";
+import ChatListItem from "domains/chat/components/ChatListItem/ChatListItem";
+import { User } from "domains/user/entity";
+import { Chat } from "domains/chat/entity";
 import style from "./ChatPage.module.css";
 
 function ChatPage() {
   const handleClick = () => null;
+  const user = {} as User;
+  const chat = {} as Chat;
+
   return (
     <div className={style.container}>
       <main className={style.chat}>
-        <section className={style.profile}>
-          <div className={style.profileAvatar}>
-            <picture>
-              <img src="https://content2.rozetka.com.ua/goods/images/big/191142789.jpg" alt="губка боб" />
-            </picture>
-          </div>
-          <div>
-            <h2>Client name</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Ab odio consequuntur velit similique molestias, provident aliquam alias illo veniam dolores vitae.
-              Veniam minima porro, deleniti doloribus modi nam velit saepe voluptate adipisci nobis libero eligendi
-              veritatis at illo est sit!
-            </p>
-          </div>
-        </section>
+        <UserProfileSection user={user} />
         <section className={style.chatContainer}>
+          <ChatList>
+            <ChatListItem chat={chat} />
+          </ChatList>
           <div className={style.messageList}>
             message
             message
