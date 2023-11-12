@@ -1,52 +1,5 @@
 .container {
   display: flex;
-  min-height: 100vh;
-}
-
-.message {
-
-}
-
-.profile {
-  display: flex;
-  background-color: #586670;
-}
-
-.profileAvatar {
-  margin-right: 20px;
-}
-
-.message-header {
-  background-color: #EACCB6;
-}
-
-.text-field {
-
-}
-
-.chat{
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
-}
-
-.messageList{
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.chatContainer {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  background-color: #D8DFE6;
-}
-
-.textField {
-  display: flex;
-}
-
-.textFieldInput {
-  width: 100%;
+  border-radius: 3px;
 }

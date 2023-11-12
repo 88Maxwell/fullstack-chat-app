@@ -1,0 +1,27 @@
+.userProfileSection {
+  display: flex;
+  font-size: 12px;
+  position: relative;
+
+  &TypographyContainer {
+    padding: 20px 24px;
+    background-color: var(--bg-primary-300);
+  }
+
+  &Primary {
+    display: -webkit-box;
+    font-size: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  
+  &Secondary {
+    font-size: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
