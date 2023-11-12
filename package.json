@@ -6,6 +6,7 @@
     "start": "cowsay",
     "start:client": "npm run -w @chat-app/client start",
     "start:server": "npm run -w @chat-app/server start",
+    "test:client": "npm run -w @chat-app/client test",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

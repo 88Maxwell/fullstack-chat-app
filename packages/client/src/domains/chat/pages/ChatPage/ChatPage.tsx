@@ -4,7 +4,7 @@ import ChatList from "domains/chat/components/ChatList";
 import ChatListItem from "domains/chat/components/ChatListItem/ChatListItem";
 import { User } from "domains/user/entity";
 import { Chat } from "domains/chat/entity";
-import style from "./ChatPage.module.css";
+import style from "./ChatPage.module.scss";
 
 function ChatPage() {
   const handleClick = () => null;

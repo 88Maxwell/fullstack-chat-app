@@ -44,6 +44,7 @@ export default class SocketService {
 
   public init() {
     this.socketServer.on("connection", (client) => {
+      console.log({ client });
       client.on("authorize", (user: User) => {
         // eslint-disable-next-line no-param-reassign
         client.user = user;

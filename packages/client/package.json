@@ -6,6 +6,9 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
+    "test": "npm run test:types && npm run test:lint",
+    "test:types": "tsc --noEmit --incremental && rm ./tsconfig.tsbuildinfo",
+    "test:lint": "eslint src --ext js,jsx,ts,tsx --color",
     "lint": "eslint src --color",
     "lint:fix": "eslint src --color --fix",
     "preview": "vite preview"

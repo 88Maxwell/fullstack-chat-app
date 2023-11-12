@@ -1,7 +1,5 @@
 import io, { Socket } from "socket.io-client";
-import {
-  AnyCallback, Cb, EventsToEmit, EventsToListen, OnMessageParams,
-} from "./SocketServiceTypes";
+import { Cb, OnMessageParams } from "./SocketServiceTypes";
 import { EmitMessageParams } from "./SocketServiceApiTypes";
 
 export default class SocketService {
@@ -11,12 +9,12 @@ export default class SocketService {
     this.io = io(url);
   }
 
-  private emit(name: EventsToEmit, data: unknown) {
-    this.io.emit(name, data);
+  private emit(...args: Parameters<Socket["emit"]>) {
+    this.io.emit(...args);
   }
 
-  private on(name: EventsToListen, cb: AnyCallback) {
-    this.io.emit(name, cb);
+  private on(...args: Parameters<Socket["on"]>) {
+    this.io.emit(...args);
   }
 
   connect() {

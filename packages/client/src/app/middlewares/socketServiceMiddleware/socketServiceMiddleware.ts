@@ -11,7 +11,7 @@ export const getSocketServiceMiddleware = (): Middleware => ({ getState, dispatc
   let socketService: SocketService;
 
   const initSocket = async () => {
-    socketService = new SocketService("");
+    socketService = new SocketService("http://localhost:8002");
 
     socketService.onMessage((...args) => next(onMessageAction(...args)));
     await socketService.connect();

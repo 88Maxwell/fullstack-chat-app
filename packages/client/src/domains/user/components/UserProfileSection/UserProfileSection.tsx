@@ -6,7 +6,7 @@ import style from "./UserProfileSection.module.css";
 function UserProfileSection({ user, className }: UserProfileSectionProps) {
   return (
     <section className={clsx(style.userProfileSection, className)}>
-      <UserAvatar avatar={user.avatar} />
+      {user.avatar ? <UserAvatar avatar={user.avatar} /> : null}
       <div>
         <h2>{user.name}</h2>
         <p>{user.bio}</p>
