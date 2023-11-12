@@ -1,7 +1,8 @@
 function getConfig() {
   return {
-    API_URL    : "http://localhost:8002",
-    API_PREFIX : "api/v1",
+    apiUrl        : "http://localhost:8002",
+    apiPrefix     : "api/v1",
+    isDevelopment : process.env?.NODE_ENV === "development",
   };
 }
 

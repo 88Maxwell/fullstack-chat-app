@@ -1,12 +1,1 @@
-export type Identifier = string;
-export type Url = string;
-export type Timestamp = number;
-export type Image = {
-  urls: {
-    large?: Url;
-    medium?: Url;
-    small?: Url;
-  },
-  alt?: string;
-
-};
+export type LoadingStatus = "idle" | "pending" | "success" | "failure";

@@ -1,4 +1,5 @@
-import type { User } from "./entitiesTypes";
+import { Chat } from "domains/chat/entity";
+import type { User, UserStatus } from "./entitiesTypes";
 
 export interface CreateUserParams {
   name: string;
@@ -10,9 +11,12 @@ export interface CreateUserResponse {
 
 export interface GetChatsParams {
   userNameFilter?: string;
+  userStatusFilter?: UserStatus | null;
 }
 
-export interface GetChatsResponse {}
+export interface GetChatsResponse {
+  chats: Chat[]
+}
 
 export interface OnMessageResponse {
   text: string;
