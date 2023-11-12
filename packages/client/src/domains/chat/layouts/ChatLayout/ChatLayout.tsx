@@ -3,7 +3,6 @@ import { ChatLayoutProps } from "./ChatLayoutTypes";
 import styles from "./ChatLayout.module.scss";
 
 function ChatLayout({ children }: ChatLayoutProps) {
-  console.log("CHAT LAYOUT");
   return (
     <div>
       <header className={styles.header}>
