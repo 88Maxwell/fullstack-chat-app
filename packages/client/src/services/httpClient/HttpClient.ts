@@ -13,7 +13,6 @@ export class HttpClient {
     private readonly apiUrl: string,
   ) {
     this.client = axios.create({
-      url          : apiUrl,
       headers      : { "content-type": "application/json" },
       responseType : "json",
     });
@@ -70,10 +69,11 @@ export class HttpClient {
 
   private async rawRequest<ResponseData = unknown>(config: AxiosRequestConfig) {
     try {
+      const url = `${this.apiUrl}/${this.prefix}${config.url}`;
       const { data: result } = await this.client.request<ResponseData>({
         ...config,
-        url    : `/${this.prefix}${config.url}`,
         method : config.method,
+        url,
       });
       return result;
     } catch (err: unknown) {

@@ -59,7 +59,7 @@ export const chatsSlice = createSlice({
       state.data.filters.userStatus = null;
     },
 
-    setChatsClientNameFilter(state, { payload }: PayloadAction<SetChatsClientNameFilterPayload>) {
+    setChatsUserNameFilter(state, { payload }: PayloadAction<SetChatsClientNameFilterPayload>) {
       state.data.filters.userName = payload;
     },
 
@@ -89,6 +89,6 @@ export const {
   setStatusFilterOnline,
   setStatusFilterAll,
   setChatLastMessage,
-  setChatsClientNameFilter,
+  setChatsUserNameFilter,
   setChatsStatusSuccess,
 } = chatsSlice.actions;

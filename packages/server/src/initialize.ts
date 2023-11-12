@@ -8,6 +8,7 @@ import FakeDatabase from "./FakeDatabase";
 import { UserController } from "./domains/user/UserControllers";
 import UserModel from "./domains/user/UserModel";
 import UserRouter from "./domains/user/userRouter";
+import AppRouter from "./AppRouter";
 
 import SocketService from "./services/SocketService";
 
@@ -25,10 +26,10 @@ export function initialize(port: number) {
   const chatModel = new ChatModel(fakeDb);
   const chatController = new ChatController(chatModel);
   const chatRouter = new ChatRouter(chatController);
+  const appRouter = new AppRouter(chatRouter, userRouter);
 
   app.use(cors());
-  app.use("api/v1", userRouter.router);
-  app.use("api/v1", chatRouter.router);
+  app.use("/api/v1", appRouter.router);
 
   socketService.init();
   // eslint-disable-next-line no-console

@@ -3,9 +3,11 @@ import { GetChatsParams, GetChatsResponse } from "@chat-app/types";
 import ChatModel from "./ChatModel";
 
 export class ChatController {
-  constructor(private chatModel: ChatModel) {}
+  constructor(private chatModel: ChatModel) {
+    this.getChats = this.getChats.bind(this);
+  }
 
-  getChats(req: express.Request<GetChatsParams>, res: express.Response<GetChatsResponse>) {
+  public getChats(req: express.Request<GetChatsParams>, res: express.Response<GetChatsResponse>) {
     const chats = this.chatModel.getChats(req.params.userNameFilter);
 
     res.send({ chats });

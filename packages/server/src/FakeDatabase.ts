@@ -39,13 +39,14 @@ export default class FakeDatabase {
 
   createFakeUser(name?: string) {
     const id = uuidv4();
-
     const user = {
       id,
-      bio   : "Random user",
-      email : `${id}@mail.co`,
-      name  : name || `${id}-name`,
-    };
+      bio    : "Random user",
+      email  : `${id}@mail.co`,
+      status : "online",
+      name   : name || `${id}-name`,
+    } satisfies User;
+
     const isExist = this.usersMap[id];
     if (!isExist) {
       this.usersMap[id] = user;

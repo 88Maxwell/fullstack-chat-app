@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useTypedDispatch } from "domains/common/hooks/useTypedDispatch";
 import { useTypedSelector } from "domains/common/hooks/useTypedSelector";
 import {
@@ -6,6 +7,9 @@ import {
   selectChatsUserNameFilter,
   selectChatsUserStatusFilter,
   selectIsChatsLoading,
+  setStatusFilterAll as setStatusFilterAllAction,
+  setStatusFilterOnline as setStatusFilterOnlineAction,
+  setChatsUserNameFilter as setChatsUserNameFilterAction,
 } from "../store/getChats";
 
 export function useChatsCase() {
@@ -16,8 +20,10 @@ export function useChatsCase() {
   const chatsUserStatusFilter = useTypedSelector(selectChatsUserStatusFilter);
   const isChatsLoading = useTypedSelector(selectIsChatsLoading);
 
-  // eslint-disable-next-line max-len
-  const onGetInitialChats = (...args: Parameters<typeof getInitialChatsAction>) => dispatch(getInitialChatsAction(...args));
+  const getInitialChats = (...args: Parameters<typeof getInitialChatsAction>) => dispatch(getInitialChatsAction(...args));
+  const setStatusFilterAll = (...args: Parameters<typeof setStatusFilterAllAction>) => dispatch(setStatusFilterAllAction(...args));
+  const setStatusFilterOnline = (...args: Parameters<typeof setStatusFilterOnlineAction>) => dispatch(setStatusFilterOnlineAction(...args));
+  const setChatsUserNameFilter = (...args: Parameters<typeof setChatsUserNameFilterAction>) => dispatch(setChatsUserNameFilterAction(...args));
 
   return {
     state : {
@@ -26,6 +32,11 @@ export function useChatsCase() {
       chatsUserStatusFilter,
     },
     booleans : { isChatsLoading },
-    actions  : { onGetInitialChats },
+    actions  : {
+      getInitialChats,
+      setStatusFilterOnline,
+      setStatusFilterAll,
+      setChatsUserNameFilter,
+    },
   };
 }

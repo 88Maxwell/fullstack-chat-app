@@ -1,6 +1,6 @@
 import Button from "domains/common/components/Button";
 import UserProfileSection from "domains/user/components/UserProfileSection/UserProfileSection";
-import ChatList from "domains/chat/components/ChatList";
+import ChatListSection from "domains/chat/components/ChatListSection";
 import ChatListItem from "domains/chat/components/ChatListItem/ChatListItem";
 import { User } from "domains/user/entity";
 import { Chat } from "domains/chat/entity";
@@ -16,9 +16,9 @@ function ChatPage() {
       <main className={style.chat}>
         <UserProfileSection user={user} />
         <section className={style.chatContainer}>
-          <ChatList>
+          <ChatListSection>
             <ChatListItem chat={chat} />
-          </ChatList>
+          </ChatListSection>
           <div className={style.messageList}>
             message
             message
