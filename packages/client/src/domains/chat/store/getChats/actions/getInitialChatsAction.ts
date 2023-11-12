@@ -1,6 +1,6 @@
 import type { AppDispatch, AppState, AppThunkContext } from "app/store";
-import { Chat } from "domains/chat/entity";
 import reportError from "domains/common/utils/reportError";
+import { Chat } from "@chat-app/types";
 import {
   failureGetChats,
   requestGetChats,

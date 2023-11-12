@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
+import { Chat } from "@chat-app/types";
 import { createSelector } from "@reduxjs/toolkit";
 import type { AppState } from "app/store";
-import { Chat } from "domains/chat/entity";
 
 // BASE
 const selectChatsRoot = (state: AppState) => state.chats;

@@ -1,7 +1,7 @@
-import { Chat } from "domains/chat/entity/chatTypes";
-import { Identifier, UserStatus } from "@chat-app/types";
+import {
+  Chat, Identifier, Message, UserStatus,
+} from "@chat-app/types";
 import { LoadingStatus } from "domains/common/commonTypes";
-import { Message } from "domains/message/enitity";
 
 export type GetChatsState = {
   data: {

@@ -1,9 +1,13 @@
 import React from "react";
 import clsx from "clsx";
 import If from "domains/common/components/If";
+import Tabs from "domains/common/components/Tabs";
+import Tab from "domains/common/components/Tab";
 import { ChatListSectionProps } from "./ChatListSectionTypes";
 import { useChatListSectionController } from "./useChatListSectionController";
-import ChatListItem from "../ChatListItem/ChatListItem";
+import ChatListItem from "../ChatListItem";
+import styles from "./ChatListSection.module.scss";
+import ChatList from "../ChatList";
 
 function ChatListSection({ className }: ChatListSectionProps) {
   const {
@@ -17,20 +21,20 @@ function ChatListSection({ className }: ChatListSectionProps) {
   } = useChatListSectionController();
 
   return (
-    <div>
-      <div>
-        <div>
-          <button type="button" onChange={handleSetStatusFilterOnline}>Online</button>
-          <button type="button" onChange={handleSetStatusFilterAll}>All</button>
-        </div>
+    <aside className={clsx(styles.chatListSection, className)}>
+      <Tabs>
+        <Tab selected={chatsUserStatusFilter === "online"} onClick={handleSetStatusFilterOnline}>Online</Tab>
+        <Tab selected={!chatsUserStatusFilter} onClick={handleSetStatusFilterAll}>All</Tab>
+      </Tabs>
+      <div className={styles.chatListContainer}>
         <If condition={!isChatsLoading} else="...loading">
-          <ul className={clsx(className)}>
-            {chats.map((c) => <ChatListItem key={`chat-list-item-${c.id}`} chat={c} />)}
-          </ul>
+          <ChatList>
+            {chats.map((c) => <ChatListItem className={styles.chatListItem} key={`chat-list-item-${c.id}`} chat={c} />)}
+          </ChatList>
         </If>
-        <input type="text" value={chatsUserNameFilter} onChange={handleChangeUserName} />
       </div>
-    </div>
+      <input type="text" value={chatsUserNameFilter} onChange={handleChangeUserName} />
+    </aside>
   );
 }
 

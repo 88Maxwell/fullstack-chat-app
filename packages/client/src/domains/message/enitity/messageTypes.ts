@@ -1,5 +1,4 @@
-import type { Identifier, Timestamp } from "domains/common/commonTypes";
-import type { User } from "domains/user/entity/userTypes";
+import { Identifier, Timestamp, User } from "@chat-app/types";
 
 export interface Message {
   id: Identifier;

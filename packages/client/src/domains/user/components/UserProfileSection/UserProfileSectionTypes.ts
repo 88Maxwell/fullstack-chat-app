@@ -1,4 +1,4 @@
-import { User } from "domains/user/entity";
+import { User } from "@chat-app/types";
 
 export interface UserProfileSectionProps {
   user: User;

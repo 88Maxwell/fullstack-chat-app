@@ -1,9 +1,9 @@
 import { Route, Switch } from "react-router-dom";
 
 import { Suspense, lazy } from "react";
-import ChatLayout from "domains/chat/layouts/ChatLayout";
 import PageLoader from "../PageLoader";
 
+const ChatLayout = lazy(() => import("domains/chat/layouts/ChatLayout"));
 const ChatPage = lazy(() => import("domains/chat/pages/ChatPage"));
 
 function Routes() {

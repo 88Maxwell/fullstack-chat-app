@@ -13,6 +13,13 @@ export const botUsers: Record<string, User> = {
     email  : "echo-bot@some.com",
     status : "online",
     bio    : "Lorem ipsum",
+    avatar : {
+      urls : {
+        large : "https://dummyimage.com/170x170/bf64bf/fff.jpg",
+        small : "https://dummyimage.com/60x60/bf64bf/fff.jpg",
+      },
+      alt : "Echo bot",
+    },
   },
   [reverseBotId] : {
     id     : reverseBotId,
@@ -20,6 +27,13 @@ export const botUsers: Record<string, User> = {
     email  : "reverse-bot@some.com",
     status : "online",
     bio    : "Lorem ipsum",
+    avatar : {
+      urls : {
+        large : "https://dummyimage.com/170x170/21cc68/fff.jpg",
+        small : "https://dummyimage.com/60x60/21cc68/fff.jpg",
+      },
+      alt : "Reverse bot",
+    },
   },
   [spamBotId] : {
     id     : spamBotId,
@@ -27,6 +41,13 @@ export const botUsers: Record<string, User> = {
     email  : "spam-bot​@some.com",
     status : "online",
     bio    : "Lorem ipsum",
+    avatar : {
+      urls : {
+        large : "https://dummyimage.com/170x170/e9ed00/fff.jpg",
+        small : "https://dummyimage.com/60x60/e9ed00/fff.jpg",
+      },
+      alt : "Spam bot",
+    },
   },
   [ignoreBotId] : {
     id     : ignoreBotId,
@@ -34,5 +55,12 @@ export const botUsers: Record<string, User> = {
     status : "online",
     email  : "ignorebot@some.com",
     bio    : "Lorem ipsum",
+    avatar : {
+      urls : {
+        large : "https://dummyimage.com/170x170/0d786a/fff.jpg",
+        small : "https://dummyimage.com/60x60/0d786a/fff.jpg",
+      },
+      alt : "Ignorebot",
+    },
   },
 };

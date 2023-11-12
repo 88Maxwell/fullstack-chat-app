@@ -1,0 +1,11 @@
+.tab {
+    width: 100%;
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+    padding: 10px 0;
+    
+    &Selected {
+      background-color: var(--bg-primary);
+    }
+  }
+  

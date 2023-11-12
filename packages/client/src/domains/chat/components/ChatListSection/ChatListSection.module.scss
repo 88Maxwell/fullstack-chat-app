@@ -1,0 +1,16 @@
+.chatListSection {
+  display: flex;
+  flex-direction: column;
+  max-width: 262px;
+  padding-bottom: 20px;
+}
+
+.chatListContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.chatListItem {
+  margin-bottom: 10px;
+}

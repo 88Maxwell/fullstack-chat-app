@@ -1,4 +1,4 @@
-import { Chat } from "domains/chat/entity/chatTypes";
+import { Chat } from "@chat-app/types";
 
 export interface ChatListItemProps {
   chat: Chat;

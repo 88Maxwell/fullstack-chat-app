@@ -75,7 +75,6 @@ export const chatsSlice = createSlice({
       const foundChat = state.data.chatsMap[chatId];
       if (!foundChat) return;
       if ((foundChat?.lastMessage?.createdAt || 0) > message.createdAt) return;
-
       foundChat.lastMessage = message;
     },
   },

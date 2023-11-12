@@ -1,9 +1,9 @@
-import ChatPage from "domains/chat/pages/ChatPage";
 import { Provider as ReduxProvider } from "react-redux";
 import "../app.scss";
 import { ConnectedRouter } from "connected-react-router";
 import ServicesProviders from "app/providers/ServicesProviders";
 import { history, services, store } from "app/store";
+import App from "../App";
 
 function Entrypoint() {
   return (
@@ -11,7 +11,7 @@ function Entrypoint() {
       <ServicesProviders services={services}>
         <ConnectedRouter history={history}>
           {/* TODO: Add error boundary */}
-          <ChatPage />
+          <App />
         </ConnectedRouter>
       </ServicesProviders>
     </ReduxProvider>

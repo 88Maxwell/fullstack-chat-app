@@ -1,7 +1,7 @@
 // import { useTypedDispatch } from "domains/common/hooks/useTypedDispatch";
 import { useTypedSelector } from "domains/common/hooks/useTypedSelector";
+import { Chat } from "@chat-app/types";
 import { selectChatById } from "../store/getChats";
-import { Chat } from "../entity";
 
 export function useChatCase(chatId: Chat["id"]) {
 //   const dispatch = useTypedDispatch();

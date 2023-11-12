@@ -1,5 +1,5 @@
-import { Chat } from "domains/chat/entity";
-import type { User, UserStatus } from "./entitiesTypes";
+
+import type { Chat, User, UserStatus } from "./entitiesTypes";
 
 export interface CreateUserParams {
   name: string;
