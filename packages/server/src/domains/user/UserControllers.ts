@@ -1,11 +1,11 @@
 import express from "express";
-import { GetMeParams, GetMeResponse } from "@chat-app/types";
+import { CreateUserParams, CreateUserResponse } from "@chat-app/types";
 import UserModel from "./UserModel";
 
 export class UserController {
   constructor(private userModel: UserModel) {}
 
-  createUser(req: express.Request<GetMeParams>, res: express.Response<GetMeResponse>) {
+  createUser(req: express.Request<CreateUserParams>, res: express.Response<CreateUserResponse>) {
     const user = this.userModel.createUser(req.body.name);
 
     res.send({ user });

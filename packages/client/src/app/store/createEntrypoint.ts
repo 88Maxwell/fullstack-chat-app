@@ -1,9 +1,17 @@
+import { createBrowserHistory } from "history";
 import { createPersistedStore } from "./createPersistedStore";
+import { initializeServices } from "./initializeServices";
 
 function createEntrypoint() {
-  const store = createPersistedStore();
+  const history = createBrowserHistory();
+  const services = initializeServices();
+  const store = createPersistedStore(history, { thunkContext: { services } });
 
-  return { store };
+  return {
+    history,
+    store,
+    services,
+  };
 }
 
-export const { store } = createEntrypoint();
+export const { history, store, services } = createEntrypoint();

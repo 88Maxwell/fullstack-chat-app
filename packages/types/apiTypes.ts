@@ -1,10 +1,10 @@
 import type { User } from "./entitiesTypes";
 
-export interface GetMeParams {
+export interface CreateUserParams {
   name: string;
 }
 
-export interface GetMeResponse {
+export interface CreateUserResponse {
   user: User;
 }
 
