@@ -1,8 +1,8 @@
-import React from "react";
 import clsx from "clsx";
 import If from "domains/common/components/If";
 import Tabs from "domains/common/components/Tabs";
 import Tab from "domains/common/components/Tab";
+import UserSearchInput from "domains/user/components/UserSearchInput";
 import { ChatListSectionProps } from "./ChatListSectionTypes";
 import { useChatListSectionController } from "./useChatListSectionController";
 import ChatListItem from "../ChatListItem";
@@ -22,7 +22,7 @@ function ChatListSection({ className }: ChatListSectionProps) {
 
   return (
     <aside className={clsx(styles.chatListSection, className)}>
-      <Tabs>
+      <Tabs className={styles.tabs}>
         <Tab selected={chatsUserStatusFilter === "online"} onClick={handleSetStatusFilterOnline}>Online</Tab>
         <Tab selected={!chatsUserStatusFilter} onClick={handleSetStatusFilterAll}>All</Tab>
       </Tabs>
@@ -33,7 +33,7 @@ function ChatListSection({ className }: ChatListSectionProps) {
           </ChatList>
         </If>
       </div>
-      <input type="text" value={chatsUserNameFilter} onChange={handleChangeUserName} />
+      <UserSearchInput className={styles.search} value={chatsUserNameFilter} onChange={handleChangeUserName} />
     </aside>
   );
 }
