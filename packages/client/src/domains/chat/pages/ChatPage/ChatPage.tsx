@@ -14,7 +14,6 @@ function ChatPage() {
       <main className={style.chat}>
         <UserProfileSection user={user} />
         <section className={style.chatContainer}>
-
           <div className={style.messageList}>
             message
             message

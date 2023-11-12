@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  background-color: #223039;
   min-height: 100vh;
 }
 
@@ -25,14 +24,6 @@
 
 }
 
-.tabs {
-
-}
-
-.tab {
-
-}
-
 .chat{
   display: flex;
   flex-direction: column;
@@ -52,14 +43,8 @@
   background-color: #D8DFE6;
 }
 
-.chatList {
-  width: 30%;
-  background-color: white;
-}
-
 .textField {
   display: flex;
-
 }
 
 .textFieldInput {

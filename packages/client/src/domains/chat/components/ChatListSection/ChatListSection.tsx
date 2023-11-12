@@ -29,7 +29,7 @@ function ChatListSection({ className }: ChatListSectionProps) {
       <div className={styles.chatListContainer}>
         <If condition={!isChatsLoading} else="...loading">
           <ChatList>
-            {chats.map((c) => <ChatListItem className={styles.chatListItem} key={`chat-list-item-${c.id}`} chat={c} />)}
+            {chats.map((c) => <ChatListItem selected={false} className={styles.chatListItem} key={`chat-list-item-${c.id}`} chat={c} />)}
           </ChatList>
         </If>
       </div>

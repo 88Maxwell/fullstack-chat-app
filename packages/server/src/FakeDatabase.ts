@@ -16,7 +16,11 @@ export default class FakeDatabase {
       return { ...acc, [c.id]: c };
     }, {});
     this.messagesMap = Object.values(this.chatsMap).reduce((acc, c) => {
-      const lastMessage = this.createMessageForChat("Lorem ipsum", c.user, c.id);
+      const lastMessage = this.createMessageForChat(
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ipsam dolor magnam, dignissimos dolores necessitatibus nihil autem tempore rerum cumque!", 
+        c.user, 
+        c.id
+      );
       this.chatsMap[c.id].lastMessage = lastMessage;
 
       return { ...acc, [lastMessage.id]: lastMessage };
