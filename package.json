@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "cowsay lol",
+    "start": "cowsay",
     "start:client": "npm run -w @chat-app/client start",
     "start:server": "npm run -w @chat-app/server start",
     "build": "tsc && vite build",
-    "lint": "eslint src --color",
-    "lint:fix": "eslint src --color --fix",
     "preview": "vite preview"
   },
   "keywords": [],

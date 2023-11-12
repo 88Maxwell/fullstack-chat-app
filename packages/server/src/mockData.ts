@@ -1,5 +1,4 @@
 import type { User } from "@chat-app/types";
-import { generateRandomUser } from "utils/generateRandomUser";
 import { v4 as uuidv4 } from "uuid";
 
 export const botUsers: Record<string, User> = {
@@ -28,14 +27,3 @@ export const botUsers: Record<string, User> = {
     bio   : "Lorem ipsum",
   },
 };
-
-const user1 = generateRandomUser("Fake user 1");
-const user2 = generateRandomUser("Fake user 2");
-const user3 = generateRandomUser("Fake user 3");
-
-export const users = [
-  ...Object.values(botUsers),
-  user1,
-  user2,
-  user3,
-];

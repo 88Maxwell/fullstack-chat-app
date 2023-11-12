@@ -9,17 +9,19 @@ import { Identifier, Image, Timestamp } from "./commonTypes";
   }
   
   
-  export interface Message {
-    id: Identifier;
-    text: string;
-    sender: User;
-    createdAt: Timestamp;
-  }
   
   export interface Chat {
     id: string;
     user: User;
     lastMessage?: Message;
+    createdAt: Timestamp;
+  }
+  
+  export interface Message {
+    id: Identifier;
+    chatId: Chat["id"];
+    text: string;
+    sender: User;
     createdAt: Timestamp;
   }
   

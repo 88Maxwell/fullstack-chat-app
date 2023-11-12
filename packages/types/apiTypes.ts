@@ -23,3 +23,12 @@ export interface OnMessageParams {
   text: string;
   chatId: string;
 }
+
+
+export type SocketEventName =
+   "connection" |
+   "disconnect" |
+   "sign-in" |
+   "message" |
+   "channel-broadcast" |
+   "online-users";
