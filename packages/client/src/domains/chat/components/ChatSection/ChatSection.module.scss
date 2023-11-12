@@ -5,26 +5,6 @@
 }
 
 
-.profile {
-    display: flex;
-    background-color: #586670;
-}
-
-.profileAvatar {
-    margin-right: 20px;
-}
-
-.message-header {
-    background-color: #EACCB6;
-}
-
-.text-field {}
-
-.chat {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
 
 .messageList {
     display: flex;
@@ -45,4 +25,16 @@
 
 .textFieldInput {
     width: 100%;
+    margin-right: 10px;
+}
+
+.newMessageSection {
+    padding: 16px 30px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sendButton {
+    font-size: 12px;
+    min-width: 195px;
 }
