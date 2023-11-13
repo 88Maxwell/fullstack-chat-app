@@ -1,99 +1,66 @@
 import {
-  AnyCallback, Identifier, OnMessageParams, SocketEventName, User,
+  EmitAuthorizeParams, OnMessageParams, User,
 } from "@chat-app/types";
 import http from "http";
 import { Socket, Server as SocketServer } from "socket.io";
 import FakeDatabase from "../FakeDatabase";
 
+const ROOM_NAME = "channel";
 export default class SocketService {
   private socketServer: SocketServer;
 
   private fakeDb: FakeDatabase;
 
-  private clientsMap: Record<Identifier, { user: User, client: Socket }> = {};
+  private usersMap: Record<User["id"], User> = {};
+
+  private userIdToSocketMap: Record<User["id"], Socket> = {};
+
+  private socketIdToUserIdMap: Record<Socket["id"], User["id"]> = {};
 
   constructor(httpServer: http.Server, fakeDb: FakeDatabase) {
     this.socketServer = new SocketServer(httpServer, { cors: { credentials: false, origin: "*" } });
     this.fakeDb = fakeDb;
   }
 
-  private emit(name: SocketEventName, data: unknown) {
-    this.socketServer.emit(name, data);
-  }
-
-  private on(name: SocketEventName, cb: AnyCallback) {
-    this.socketServer.on(name, cb);
-  }
-
-  // public connection(cb: Cb<Socket>) {
-  //   this.socketServer.on("connection", cb);
-  // }
-
-  // public disconnect(cb: AnyCallback) {
-  //   this.on("disconnect", cb);
-  // }
-
-  // public onMessage(cb: Cb<OnMessageParams>) {
-  //   this.on("message", cb);
-  // }
-
   // eslint-disable-next-line class-methods-use-this
-  private getUserRoomName(userId: Identifier) {
-    return `user-room-${userId}-channel`;
-  }
-
   public init() {
-    this.socketServer.on("connection", (client) => {
-      console.log({ client });
-      client.on("authorize", (user: User) => {
-        // eslint-disable-next-line no-param-reassign
-        client.user = user;
-        this.clientsMap[user.id] = { user, client };
-        const userRoom = `channel-user-room-${user.id}`;
-        client.join(userRoom);
-
-        const connectedClientsIds = Object.keys(this.clientsMap);
-        connectedClientsIds
-          .filter((id) => id !== user.id)
-          .forEach((id) => this.clientsMap[id].client.emit("userOnline", { user }));
+    this.socketServer.on("connection", (socket) => {
+      socket.on("authorize", ({ user }: EmitAuthorizeParams) => {
+        const sockets = Object.values(this.userIdToSocketMap);
+        socket.join(ROOM_NAME);
+        sockets.forEach((s) => s.emit("authorize", { user }));
+        this.usersMap[user.id] = user;
+        this.userIdToSocketMap[user.id] = socket;
+        this.socketIdToUserIdMap[socket.id] = user.id;
       });
 
-      // client.on("error", (error: unknown) => console.log("ERROR!!", error));
-      // client.on("disconnecting", (reason: string) => console.log("DISCONNECTING, ", reason));
-
-      // client.on("channelBroadcast", (payload: any) => {
-      // console.log('CHANNEL BROADCAST', io.sockets.adapter.rooms[payload.channelId]);
-      // io.sockets.adapter.rooms[payload.channelId].length {to get how many in the room live}
-      // if (socketServer.sockets.adapter.rooms[payload.channelId]) {
-      // socketServer.to(payload.channelId).emit(SocketEventName.channelBroadcast, payload);
-      // }
-      // });
-
-      client.on("message", (params: OnMessageParams) => {
-        const targetUser = this.fakeDb.getUserByChatId(params.chatId);
-        if (!targetUser) return;
-
-        this.clientsMap[targetUser.id].client.emit("message", params);
+      socket.on("unauthorize", () => {
+        const sockets = Object.values(this.userIdToSocketMap);
+        const userId = this.socketIdToUserIdMap[socket.id];
+        if (!userId) return;
+        socket.leave(ROOM_NAME);
+        sockets.forEach((s) => s.emit("authorize", { userId }));
+        delete this.userIdToSocketMap[userId];
+        delete this.usersMap[userId];
+        delete this.socketIdToUserIdMap[socket.id];
       });
 
-      client.on("disconnect", () => {
-        if (!client.user) return;
-        const userId = client.user.id;
-        const userRoomName = this.getUserRoomName(userId);
+      socket.on("message", (params: OnMessageParams) => {
+        if (!params.userId) return;
+        const targetSocket = this.userIdToSocketMap[params.userId];
+        if (!targetSocket) return;
+        targetSocket.emit("message", params);
+      });
 
-        client.leave(userRoomName);
-
-        const target = this.clientsMap[userId];
-
-        if (!target) return;
-
-        const connectedClientsIds = Object.keys(this.clientsMap);
-
-        connectedClientsIds
-          .filter((id) => id !== userId)
-          .forEach((id) => this.clientsMap[id].client.emit("userOffline", { user: target.user }));
-
-        delete this.clientsMap[userId];
+      socket.on("disconnect", () => {
+        const sockets = Object.values(this.userIdToSocketMap);
+        const userId = this.socketIdToUserIdMap[socket.id];
+        if (!userId) return;
+        socket.leave(ROOM_NAME);
+        sockets.forEach((s) => s.emit("authorize", { userId }));
+        delete this.userIdToSocketMap[userId];
+        delete this.usersMap[userId];
+        delete this.socketIdToUserIdMap[socket.id];
       });
     });
   }

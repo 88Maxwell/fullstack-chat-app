@@ -1,12 +1,13 @@
 import io, { Socket } from "socket.io-client";
-import { Cb, OnMessageParams } from "./SocketServiceTypes";
-import { EmitMessageParams } from "./SocketServiceApiTypes";
+import {
+  Cb, EmitAuthorizeParams, EmitMessageParams, OnMessageParams, OnUserAuthorizedParams,
+} from "@chat-app/types";
 
 export default class SocketService {
   private io: Socket;
 
-  constructor(url: string) {
-    this.io = io(url);
+  constructor(url: string, extraData: Record<string, unknown>) {
+    this.io = io(url, { query: extraData });
   }
 
   private emit(...args: Parameters<Socket["emit"]>) {
@@ -14,7 +15,7 @@ export default class SocketService {
   }
 
   private on(...args: Parameters<Socket["on"]>) {
-    this.io.emit(...args);
+    this.io.on(...args);
   }
 
   connect() {
@@ -25,11 +26,23 @@ export default class SocketService {
     this.io.close();
   }
 
+  onConnected(cb: Cb<void>) {
+    this.on("connect", cb);
+  }
+
+  onAuthorized(cb: Cb<OnUserAuthorizedParams>) {
+    this.on("authorized", cb);
+  }
+
   onMessage(cb: Cb<OnMessageParams>) {
     this.on("message", cb);
   }
 
   sendMessage(params: EmitMessageParams) {
     this.emit("message", params);
+  }
+
+  authorize(params: EmitAuthorizeParams) {
+    this.emit("authorize", params);
   }
 }

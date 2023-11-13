@@ -10,5 +10,4 @@ export type Image = {
 export type Identifier = string;
 export type Url = string;
 export type Timestamp = number;
-export type AnyCallback = (...args: any[]) => void;
 export type Cb<Params> = (params: Params) => void;
