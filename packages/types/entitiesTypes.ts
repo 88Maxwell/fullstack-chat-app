@@ -23,5 +23,6 @@ export interface Message {
   text: string;
   sender: User;
   createdAt: Timestamp;
+  readAt?: Timestamp;
 }
   

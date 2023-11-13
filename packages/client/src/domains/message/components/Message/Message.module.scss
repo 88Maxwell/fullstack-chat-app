@@ -1,0 +1,76 @@
+.messageItem {
+  display: block;
+}
+
+.message { 
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 12px;
+  max-width: 75%;
+
+  &User {
+    float: left;
+  }
+
+  &Own {
+    float: right;
+    margin-left: "auto";
+  }
+  
+  &Header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+
+    &User {
+      background-color: var(--bg-primary-400);
+    }
+  
+    &Own {
+      background-color: var(--warning-main);
+    }
+  }
+
+  &Body {
+    padding: 12px 16px;
+    background-color: var(--bg-primary-100);
+    position: relative;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 0;
+      background-color: var(--bg-primary-100);
+    }
+    
+    &User {
+      &::after{
+        left: 0;
+        transform: translate(-50%, 50%) rotate(45deg); 
+      }
+    }
+  
+    &Own {
+      &::after{
+        right: 0;
+        transform: translate(50%, 50%) rotate(45deg); 
+      }
+    }
+  }
+
+  &Date {
+    color: var(--text-secondary)
+  }
+  &ReadAt {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+    padding: 10px 16px 0 16px;
+    float: left;
+    text-align: start;
+  }
+}
+

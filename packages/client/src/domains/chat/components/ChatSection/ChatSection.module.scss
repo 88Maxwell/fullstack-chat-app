@@ -4,24 +4,16 @@
     flex-grow: 1;
 }
 
-
-
 .messageList {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
 }
 
 .chatContainer {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    background-color: var(--bg-primary-200);
+    background-color: var(--bg-primary-300);
 }
 
-.textField {
-    display: flex;
-}
 
 .textFieldInput {
     width: 100%;
