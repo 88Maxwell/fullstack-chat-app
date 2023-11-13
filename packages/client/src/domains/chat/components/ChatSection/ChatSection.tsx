@@ -16,7 +16,7 @@ function ChatSection({ className, chat }: ChatSectionProps) {
 
   return (
     <main className={clsx(style.container, className)}>
-      <UserProfileSection user={chat.user} />
+      {chat.user ? <UserProfileSection user={chat.user} /> : null}
       <div className={style.messageListContainer}>
         <MessageList className={style.messageList}>
           {messages.map((m) => <MessageItem key={m.id} className={style.messageItem} own message={m} />)}
