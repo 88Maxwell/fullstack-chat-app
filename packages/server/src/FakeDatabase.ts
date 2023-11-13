@@ -1,29 +1,18 @@
 import { v4 as uuidv4 } from "uuid";
-import type { Chat, Message, User } from "@chat-app/types";
+import type { Chat, User } from "@chat-app/types";
 import { botUsers } from "./mockData";
 
 export default class FakeDatabase {
   private usersMap: Record<User["id"], User> = {};
 
-  private chatsMap: Record<Chat["id"], Chat> = {};
-
-  private messagesMap: Record<Message["id"], Message> = {};
+  private chatsMap: Record<User["id"], Chat> = {};
 
   constructor() {
     this.usersMap = botUsers;
-    this.chatsMap = Object.values(botUsers).reduce((acc, u) => {
-      const c = this.createChatForUser(u);
+    this.chatsMap = Object.values(this.usersMap).reduce((acc, u) => {
+      Object.values(this.usersMap).reduce((a, u2) => u.id !== u, {});
+      const c = this.createChatBetweenUsers(u);
       return { ...acc, [c.id]: c };
-    }, {});
-    this.messagesMap = Object.values(this.chatsMap).reduce((acc, c) => {
-      const lastMessage = this.createMessageForChat(
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ipsam dolor magnam, dignissimos dolores necessitatibus nihil autem tempore rerum cumque!", 
-        c.user, 
-        c.id
-      );
-      this.chatsMap[c.id].lastMessage = lastMessage;
-
-      return { ...acc, [lastMessage.id]: lastMessage };
     }, {});
   }
 
@@ -59,28 +48,22 @@ export default class FakeDatabase {
     return user;
   }
 
-  createChatForUser(u: User, lastMessage?: Message): Chat {
+  createChatsForUser(user: User) {
+    this.chatsMap = Object.values(this.usersMap)
+      .map((u) => this.createChatBetweenUsers(user, u))
+      .reduce((acc, c) => ({ ...acc, [c.id]: c }), this.chatsMap);
+
+    return this.chatsMap;
+  }
+
+  createChatBetweenUsers(u: User, u2: User): Chat {
     const chat = {
       id        : uuidv4(),
       createdAt : Date.now(),
       user      : u,
-      lastMessage,
     };
     this.chatsMap[chat.id] = chat;
 
     return chat;
-  }
-
-  createMessageForChat(text:string, sender: User, chatId: Chat["id"]): Message {
-    const message: Message = {
-      createdAt : Date.now(),
-      id        : uuidv4(),
-      chatId,
-      sender,
-      text,
-    };
-    this.messagesMap[message.id] = message;
-
-    return message;
   }
 }

@@ -6,7 +6,6 @@ export {
   requestGetChats,
   setStatusFilterOnline,
   setStatusFilterAll,
-  setChatLastMessage,
   setChatsUserNameFilter,
   setChatsStatusSuccess,
 } from "./getChatsSlice";

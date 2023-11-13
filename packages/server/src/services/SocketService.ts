@@ -29,6 +29,7 @@ export default class SocketService {
         const sockets = Object.values(this.userIdToSocketMap);
         socket.join(ROOM_NAME);
         sockets.forEach((s) => s.emit("authorize", { user }));
+        this.fakeDb.createChatBetweenUsers();
         this.usersMap[user.id] = user;
         this.userIdToSocketMap[user.id] = socket;
         this.socketIdToUserIdMap[socket.id] = user.id;

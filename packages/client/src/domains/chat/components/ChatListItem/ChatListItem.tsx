@@ -17,7 +17,7 @@ function ChatListItem({ chat, className, selected }: ChatListItemProps) {
           </div>
           <div className={styles.chatListItemTypographyContainer}>
             <h4 className={styles.chatListItemPrimary}>{chat.user.name}</h4>
-            <p className={styles.chatListItemSecondary}>{chat.lastMessage?.text}</p>
+            <p className={styles.chatListItemSecondary}>{chat.user?.bio}</p>
           </div>
         </div>
       </Link>

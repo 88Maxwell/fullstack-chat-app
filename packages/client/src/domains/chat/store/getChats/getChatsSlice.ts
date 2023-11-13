@@ -4,7 +4,6 @@ import {
   AddChatToListPayload,
   GetChatsState,
   SuccessGetChatsPayload,
-  SetChatLastMessagePayload,
   SetChatsClientNameFilterPayload,
 } from "./getChatsTypes";
 
@@ -68,15 +67,6 @@ export const chatsSlice = createSlice({
 
       state.data.chatsMap[chat.id] = chat;
     },
-
-    setChatLastMessage(state, action: PayloadAction<SetChatLastMessagePayload>) {
-      const { message, chatId } = action.payload;
-
-      const foundChat = state.data.chatsMap[chatId];
-      if (!foundChat) return;
-      if ((foundChat?.lastMessage?.createdAt || 0) > message.createdAt) return;
-      foundChat.lastMessage = message;
-    },
   },
 });
 
@@ -87,7 +77,6 @@ export const {
   requestGetChats,
   setStatusFilterOnline,
   setStatusFilterAll,
-  setChatLastMessage,
   setChatsUserNameFilter,
   setChatsStatusSuccess,
 } = chatsSlice.actions;

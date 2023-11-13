@@ -13,7 +13,6 @@ export interface User {
 export interface Chat {
   id: string;
   user: User;
-  lastMessage?: Message;
   createdAt: Timestamp;
 }
 

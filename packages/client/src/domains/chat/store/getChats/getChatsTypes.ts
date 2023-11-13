@@ -1,5 +1,5 @@
 import {
-  Chat, Identifier, Message, UserStatus,
+  Chat, Identifier, UserStatus,
 } from "@chat-app/types";
 import { LoadingStatus } from "domains/common/commonTypes";
 
@@ -14,11 +14,6 @@ export type GetChatsState = {
   status: LoadingStatus;
   error: string;
 };
-
-export interface SetChatLastMessagePayload {
-  chatId: Identifier;
-  message: Message;
-}
 
 export interface ToogleChatFavorite {
   chatId: Chat["id"];
