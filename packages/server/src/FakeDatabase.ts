@@ -74,6 +74,7 @@ export default class FakeDatabase {
   }
 
   getChatById(chatId: ServerChat["id"]) {
+    console.log({ c: this.chatsMap });
     return this.chatsMap[chatId];
   }
 

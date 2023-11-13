@@ -12,8 +12,14 @@ export const getSocketServiceMiddleware = (): Middleware => ({ getState, dispatc
   const socketService = new SocketService("http://localhost:8002", {
     userId : user.id,
   });
-  socketService.onConnected(() => socketService.authorize({ user }));
-  socketService.onAuthorized((...args) => next(onUserAuthorizedAction(...args)));
+  socketService.onConnected(() => {
+    console.log("onconnected");
+    socketService.authorize({ user });
+  });
+  socketService.onAuthorized((...args) => {
+    console.log("authorized");
+    next(onUserAuthorizedAction(...args));
+  });
   socketService.onMessage((...args) => next(onMessageAction(...args)));
   socketService.connect();
 

@@ -24,29 +24,30 @@ export default class SocketService {
   public init() {
     this.socketServer.on("connection", (socket) => {
       socket.on("authorize", ({ user }: EmitAuthorizeParams) => {
-        // const sockets = Object.values(this.userIdToSocketMap);
+        const sockets = Object.values(this.userIdToSocketMap);
         socket.join(ROOM_NAME);
-        socket.emit("authorize", { user });
-        // sockets.forEach((s) => s.emit("authorize", { user }));
         this.fakeDb.createChatsForUser(user);
+        sockets.forEach((s) => s.emit("authorize", { user }));
         this.userIdToSocketMap[user.id] = socket;
         this.socketIdToUserIdMap[socket.id] = user.id;
       });
 
       socket.on("unauthorize", () => {
-        // const sockets = Object.values(this.userIdToSocketMap);
+        const sockets = Object.values(this.userIdToSocketMap);
         const userId = this.socketIdToUserIdMap[socket.id];
         if (!userId) return;
         socket.leave(ROOM_NAME);
         socket.emit("authorize", { userId });
-        // sockets.forEach((s) => s.emit("authorize", { userId }));
+        sockets.forEach((s) => s.emit("authorize", { userId }));
         delete this.userIdToSocketMap[userId];
         delete this.socketIdToUserIdMap[socket.id];
       });
 
       socket.on("message", (params: OnMessageParams) => {
+        console.log({ params });
         if (!params.chatId) return;
         const chat = this.fakeDb.getChatById(params.chatId);
+        console.log({ chat });
         if (!chat) return;
 
         const currentUserId = this.socketIdToUserIdMap[socket.id];
@@ -55,7 +56,8 @@ export default class SocketService {
         const targetSocket = this.userIdToSocketMap[targetUserId];
         if (!targetSocket) return;
         const message = this.fakeDb.createMessage(params.chatId, currentUserId, params.text);
-        socket.emit("message", { message });
+        // socket.emit("message", { message });
+        this.socketServer.sockets.emit("message", { message });
       });
 
       socket.on("disconnect", () => {

@@ -15,7 +15,7 @@ export function useChatSectionController(chat: ClientChat) {
   const { state: { messages } } = useMessagesCase(chat.id);
 
   const handleChangeDraftMessage = (e: React.ChangeEvent<HTMLInputElement>) => updateDraftMessage(e.target.value);
-  const handleSendMessage = () => sendMessage(chat.user.id);
+  const handleSendMessage = () => sendMessage();
   const handleSendMessageOnKeyDown = (e?: React.KeyboardEvent<HTMLInputElement>) => {
     const isKeyEnter = e?.key === "Enter";
 
