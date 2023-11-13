@@ -13,7 +13,7 @@ export default class SocketService {
   private clientsMap: Record<Identifier, { user: User, client: Socket }> = {};
 
   constructor(httpServer: http.Server, fakeDb: FakeDatabase) {
-    this.socketServer = new SocketServer(httpServer);
+    this.socketServer = new SocketServer(httpServer, { cors: { credentials: false, origin: "*" } });
     this.fakeDb = fakeDb;
   }
 

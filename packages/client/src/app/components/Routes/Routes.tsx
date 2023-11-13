@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import { Suspense, lazy } from "react";
 import PageLoader from "../PageLoader";
@@ -15,6 +15,9 @@ function Routes() {
             <ChatPage />
           </ChatLayout>
         </Suspense>
+      </Route>
+      <Route>
+        <Redirect to="/chat" />
       </Route>
     </Switch>
   );
