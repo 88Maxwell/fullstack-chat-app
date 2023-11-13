@@ -40,10 +40,11 @@ export default class SocketService {
 
         const targetSocket = this.userIdToSocketMap[chat.user.id];
         console.log({ targetSocket });
-        if (!targetSocket) {}
+        // if (!targetSocket) {}
         const message = this.fakeDb.createMessage(params.chatId, currentUserId, params.text);
         // // socket.emit("message", { message });
         socket.emit("message", { message });
+        socket.to(socket.id).emit("messagae");
         targetSocket.emit("message", { message });
       });
 
