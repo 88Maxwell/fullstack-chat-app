@@ -1,10 +1,10 @@
-import { Chat, Message } from "@chat-app/types";
+import { ClientChat, Message } from "@chat-app/types";
 
 export interface DraftMessageState {
-  draftMessageMap: Record<Chat["id"], Message["text"]>
+  draftMessageMap: Record<ClientChat["id"], Message["text"]>
 }
 
 export interface UpdateDraftMessageByChatIdPayload {
-  chatId: Chat["id"] ;
+  chatId: ClientChat["id"] ;
   text: Message["text"];
 }

@@ -1,5 +1,5 @@
 
-import type { Chat, Message, User, UserStatus } from "./entitiesTypes";
+import type { ClientChat, Message, User, UserStatus } from "./entitiesTypes";
 
 export interface CreateUserParams {
   name: string;
@@ -15,7 +15,7 @@ export interface GetChatsParams {
 }
 
 export interface GetChatsResponse {
-  chats: Chat[]
+  chats: ClientChat[]
 }
 
 export interface OnMessageResponse {
@@ -24,7 +24,7 @@ export interface OnMessageResponse {
 }
 
 export interface OnMessageParams {
-  chatId: Chat["id"];
+  chatId: ClientChat["id"];
   message: Message
 }
 
@@ -42,14 +42,8 @@ export type SocketEventName =
   }
   
   export interface OnUserAuthorizedParams {
-    chat: Chat;
+    chat: ClientChat;
   }
-  // emit listeners
-  export interface EmitMessageParams {
-    text: string;
-    userId: string;
-  }
-  
   export interface EmitAuthorizeParams {
     user: User;
   }

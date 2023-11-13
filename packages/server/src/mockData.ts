@@ -10,6 +10,7 @@ export const botUsers: Record<string, User> = {
   [echoBotId] : {
     id     : echoBotId,
     name   : "Echo bot",
+    type   : "echo-bot",
     email  : "echo-bot@some.com",
     status : "online",
     bio    : "Lorem ipsum",
@@ -24,6 +25,7 @@ export const botUsers: Record<string, User> = {
   [reverseBotId] : {
     id     : reverseBotId,
     name   : "Reverse bot",
+    type   : "reverse-bot",
     email  : "reverse-bot@some.com",
     status : "online",
     bio    : "Lorem ipsum",
@@ -38,6 +40,7 @@ export const botUsers: Record<string, User> = {
   [spamBotId] : {
     id     : spamBotId,
     name   : "Spam bot",
+    type   : "spam-bot",
     email  : "spam-bot​@some.com",
     status : "online",
     bio    : "Lorem ipsum",
@@ -52,6 +55,7 @@ export const botUsers: Record<string, User> = {
   [ignoreBotId] : {
     id     : ignoreBotId,
     name   : "Ignorebot",
+    type   : "ignore-bot",
     status : "online",
     email  : "ignorebot@some.com",
     bio    : "Lorem ipsum",

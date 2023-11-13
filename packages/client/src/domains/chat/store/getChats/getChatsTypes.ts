@@ -1,11 +1,11 @@
 import {
-  Chat, Identifier, UserStatus,
+  ClientChat, Identifier, UserStatus,
 } from "@chat-app/types";
 import { LoadingStatus } from "domains/common/commonTypes";
 
 export type GetChatsState = {
   data: {
-    chatsMap: Record<Chat["id"], Chat>;
+    chatsMap: Record<ClientChat["id"], ClientChat>;
     filters: {
       userName: string,
       userStatus: UserStatus | null;
@@ -16,16 +16,16 @@ export type GetChatsState = {
 };
 
 export interface ToogleChatFavorite {
-  chatId: Chat["id"];
+  chatId: ClientChat["id"];
 }
 
 export interface AddChatToListActionParams {
-  chatId: Chat["id"];
+  chatId: ClientChat["id"];
   switchToChat?: boolean;
 }
 
 export interface AddChatToListPayload {
-  chat: Chat;
+  chat: ClientChat;
 }
 
 export interface ChatSessionStartedPayload {
@@ -34,7 +34,7 @@ export interface ChatSessionStartedPayload {
 }
 
 export interface SuccessGetChatsPayload {
-  chats: Chat[];
+  chats: ClientChat[];
 }
 
 export type SetChatsClientNameFilterPayload = string;

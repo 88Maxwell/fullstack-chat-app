@@ -3,7 +3,7 @@
     "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
-    "types": ["node"],
+    "types": ["node", "./src/@types"],
     "lib": [ "esnext"],
     "esModuleInterop": true,
     "skipLibCheck": true,

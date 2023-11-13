@@ -11,7 +11,7 @@ function MessageInput({
       placeholder="Search..."
       className={clsx(style.input, className)}
       type="text"
-      value={value}
+      value={value || ""}
       onKeyDown={onKeyDown}
       onChange={onChange}
     />

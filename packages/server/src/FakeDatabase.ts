@@ -1,19 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
-import type { Chat, User } from "@chat-app/types";
+import type { Message, User } from "@chat-app/types";
+import type { ServerChat } from "./domains/chat/chatTypes";
 import { botUsers } from "./mockData";
 
 export default class FakeDatabase {
   private usersMap: Record<User["id"], User> = {};
 
-  private chatsMap: Record<User["id"], Chat> = {};
+  private chatsMap: Record<User["id"], ServerChat> = {};
 
   constructor() {
     this.usersMap = botUsers;
-    this.chatsMap = Object.values(this.usersMap).reduce((acc, u) => {
-      Object.values(this.usersMap).reduce((a, u2) => u.id !== u, {});
-      const c = this.createChatBetweenUsers(u);
-      return { ...acc, [c.id]: c };
-    }, {});
+    Object.values(this.usersMap).forEach((u) => this.createChatsForUser(u));
   }
 
   getUsers() {
@@ -24,10 +21,10 @@ export default class FakeDatabase {
     return Object.values(this.chatsMap);
   }
 
-  getUserByChatId(chatId: Chat["id"]) {
+  getUserByChatId(chatId: ServerChat["id"]) {
     const targetChat = this.chatsMap[chatId];
     if (!targetChat) return null;
-    return targetChat.user;
+    return targetChat.user1;
   }
 
   createFakeUser(name?: string) {
@@ -35,6 +32,7 @@ export default class FakeDatabase {
     const user = {
       id,
       bio    : "Random user",
+      type   : "human",
       email  : `${id}@mail.co`,
       status : "online",
       name   : name || `${id}-name`,
@@ -49,21 +47,44 @@ export default class FakeDatabase {
   }
 
   createChatsForUser(user: User) {
-    this.chatsMap = Object.values(this.usersMap)
-      .map((u) => this.createChatBetweenUsers(user, u))
-      .reduce((acc, c) => ({ ...acc, [c.id]: c }), this.chatsMap);
+    Object.values(this.usersMap)
+      .forEach((u) => this.createChatBetweenUsers(user, u));
 
     return this.chatsMap;
   }
 
-  createChatBetweenUsers(u: User, u2: User): Chat {
+  createChatBetweenUsers(u1: User, u2: User): ServerChat {
+    const currentChat = Object.values(this.chatsMap).find((c) => {
+      const cond1 = (c.user1.id === u1.id && c.user2.id === u2.id);
+      const cond2 = (c.user1.id === u2.id && c.user2.id === u1.id);
+      return cond1 || cond2;
+    });
+
+    if (currentChat) return currentChat;
+
     const chat = {
       id        : uuidv4(),
+      user1     : u1,
+      user2     : u2,
       createdAt : Date.now(),
-      user      : u,
     };
     this.chatsMap[chat.id] = chat;
 
     return chat;
+  }
+
+  getChatById(chatId: ServerChat["id"]) {
+    return this.chatsMap[chatId];
+  }
+
+  createMessage(chatId: ServerChat["id"], senderId: User["id"], text: string) {
+    const sender = this.usersMap[senderId];
+    return {
+      id        : uuidv4(),
+      text,
+      chatId,
+      sender,
+      createdAt : Date.now(),
+    } satisfies Message;
   }
 }

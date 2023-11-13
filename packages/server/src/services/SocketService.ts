@@ -11,8 +11,6 @@ export default class SocketService {
 
   private fakeDb: FakeDatabase;
 
-  private usersMap: Record<User["id"], User> = {};
-
   private userIdToSocketMap: Record<User["id"], Socket> = {};
 
   private socketIdToUserIdMap: Record<Socket["id"], User["id"]> = {};
@@ -26,31 +24,38 @@ export default class SocketService {
   public init() {
     this.socketServer.on("connection", (socket) => {
       socket.on("authorize", ({ user }: EmitAuthorizeParams) => {
-        const sockets = Object.values(this.userIdToSocketMap);
+        // const sockets = Object.values(this.userIdToSocketMap);
         socket.join(ROOM_NAME);
-        sockets.forEach((s) => s.emit("authorize", { user }));
-        this.fakeDb.createChatBetweenUsers();
-        this.usersMap[user.id] = user;
+        socket.emit("authorize", { user });
+        // sockets.forEach((s) => s.emit("authorize", { user }));
+        this.fakeDb.createChatsForUser(user);
         this.userIdToSocketMap[user.id] = socket;
         this.socketIdToUserIdMap[socket.id] = user.id;
       });
 
       socket.on("unauthorize", () => {
-        const sockets = Object.values(this.userIdToSocketMap);
+        // const sockets = Object.values(this.userIdToSocketMap);
         const userId = this.socketIdToUserIdMap[socket.id];
         if (!userId) return;
         socket.leave(ROOM_NAME);
-        sockets.forEach((s) => s.emit("authorize", { userId }));
+        socket.emit("authorize", { userId });
+        // sockets.forEach((s) => s.emit("authorize", { userId }));
         delete this.userIdToSocketMap[userId];
-        delete this.usersMap[userId];
         delete this.socketIdToUserIdMap[socket.id];
       });
 
       socket.on("message", (params: OnMessageParams) => {
-        if (!params.userId) return;
-        const targetSocket = this.userIdToSocketMap[params.userId];
+        if (!params.chatId) return;
+        const chat = this.fakeDb.getChatById(params.chatId);
+        if (!chat) return;
+
+        const currentUserId = this.socketIdToUserIdMap[socket.id];
+        if (!currentUserId) return;
+        const targetUserId = chat.user1.id === currentUserId ? chat.user2.id : chat.user1.id;
+        const targetSocket = this.userIdToSocketMap[targetUserId];
         if (!targetSocket) return;
-        targetSocket.emit("message", params);
+        const message = this.fakeDb.createMessage(params.chatId, currentUserId, params.text);
+        socket.emit("message", { message });
       });
 
       socket.on("disconnect", () => {
@@ -60,7 +65,6 @@ export default class SocketService {
         socket.leave(ROOM_NAME);
         sockets.forEach((s) => s.emit("authorize", { userId }));
         delete this.userIdToSocketMap[userId];
-        delete this.usersMap[userId];
         delete this.socketIdToUserIdMap[socket.id];
       });
     });
