@@ -2,16 +2,20 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    height: 100%;
+    background-color: var(--bg-primary-300);
 }
 
 .messageList {
+  padding: 0 24px;
 }
 
-.chatContainer {
+.messageListContainer {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    background-color: var(--bg-primary-300);
+    padding: 20px 10px;
+    overflow: hidden;
 }
 
 
@@ -29,4 +33,8 @@
 .sendButton {
     font-size: 12px;
     min-width: 195px;
+}
+
+.messageItem {
+    margin-bottom: 20px;
 }

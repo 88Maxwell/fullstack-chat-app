@@ -1,7 +1,7 @@
 .button {
   min-width: 200px;
   min-height: 36px;
-  background-color: #428bca;
+  background-color: var(--primary-main);
   color: white;
   border: none;
   border-radius: 5px;

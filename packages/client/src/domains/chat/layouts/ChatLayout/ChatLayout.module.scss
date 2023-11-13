@@ -3,15 +3,16 @@
  }
 
 .header {
+  height: var(--header-height);
   padding: 20px 80px;
+  font-size: 24px;
   background-color: var(--bg-primary-main);
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  overflow: hidden;
+  height: var(--main-height);
   padding: 20px 80px 48px;
   background: var(--bg-secondary);
 }

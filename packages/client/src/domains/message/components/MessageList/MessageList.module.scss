@@ -1,8 +1,21 @@
 .messageList {
-  padding: 30px;
   display: flex;
   flex-direction: column-reverse;
-  position: relative;
   flex-grow: 1;
-  overflow: auto
+  background-color: var(--bg-primary-300);
+  overflow-Y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--bg-secondary-light);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(var(--bg-secondary-light-rgb), 0.3);
+    border-radius: 5px;
+  }
 }
