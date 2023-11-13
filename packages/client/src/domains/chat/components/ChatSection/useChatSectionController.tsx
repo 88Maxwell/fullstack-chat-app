@@ -1,8 +1,8 @@
-import { ClientChat } from "@chat-app/types";
+import { Chat } from "@chat-app/types";
 import { useDraftMessageCase } from "domains/message/cases/useDraftMessageCase";
 import { useMessagesCase } from "domains/message/cases/useMessagesCase";
 
-export function useChatSectionController(chat: ClientChat) {
+export function useChatSectionController(chat: Chat) {
   const {
     state : {
       draftMessage,

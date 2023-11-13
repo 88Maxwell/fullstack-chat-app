@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
-import { ClientChat, Message } from "@chat-app/types";
+import { Chat, Message } from "@chat-app/types";
 import { createSelector } from "@reduxjs/toolkit";
 import type { AppState } from "app/store";
 
 const selectMessagesRoot = (state: AppState) => state.messages;
-const selectMessagesByChatIdParams = (_: AppState, chatId: ClientChat["id"]) => chatId;
+const selectMessagesByChatIdParams = (_: AppState, chatId: Chat["id"]) => chatId;
 
 export const selectMessagesChatMap = createSelector(selectMessagesRoot, (st) => st.chatMap);
 

@@ -12,15 +12,15 @@ export interface User {
   bio: string;
 }
 
-export interface ClientChat {
+export interface Chat {
   id: string;
-  user: User;
+  user?: User | null;
   createdAt: Timestamp;
 }
 
 export interface Message {
   id: Identifier;
-  chatId: ClientChat["id"];
+  chatId: Chat["id"];
   text: string;
   sender: User;
   createdAt: Timestamp;

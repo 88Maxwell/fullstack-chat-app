@@ -1,4 +1,4 @@
-import { ClientChat, Message } from "@chat-app/types";
+import { Chat, Message } from "@chat-app/types";
 import { AxiosError } from "axios";
 import { LoadingStatus } from "domains/common/commonTypes";
 
@@ -8,7 +8,7 @@ export type GetMessageArgs = {
 };
 
 export type GetMessagesSliceState = {
-  chatMap: Record< ClientChat["id"], {
+  chatMap: Record< Chat["id"], {
     data: GetMessagesStateData,
     initialLoadingStatus: LoadingStatus
     initialError: null | AxiosError;
@@ -17,7 +17,7 @@ export type GetMessagesSliceState = {
 
 export type GetInitialMessagesDTO = {
   messages: Message[];
-  chatId: ClientChat["id"];
+  chatId: Chat["id"];
 };
 
 export type GetMessagesStateData = {
@@ -26,14 +26,14 @@ export type GetMessagesStateData = {
 
 export type AddMessage = {
   message: Message;
-  chatId: ClientChat["id"];
+  chatId: Chat["id"];
 };
 
 export interface ActionByChatIdPayload {
-  chatId: ClientChat["id"];
+  chatId: Chat["id"];
 }
 
 export interface ErrorPayload {
   error: null | AxiosError;
-  chatId: ClientChat["id"];
+  chatId: Chat["id"];
 }

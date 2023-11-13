@@ -22,6 +22,11 @@ export function initialize(port: number) {
   const appRouter = new AppRouter(chatRouter);
 
   app.use(cors());
+  app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+    req.user = { id: req.headers.user as string };
+
+    return next();
+  });
   app.use("/api/v1", appRouter.router);
 
   socketService.init();

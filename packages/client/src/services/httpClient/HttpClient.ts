@@ -8,14 +8,23 @@ export class HttpClient {
 
   private errorListeners: ((err: AxiosError) => void)[] = [];
 
+  private auth = "";
+
   constructor(
     private readonly prefix: string,
     private readonly apiUrl: string,
   ) {
     this.client = axios.create({
-      headers      : { "content-type": "application/json" },
+      headers : {
+        "content-type" : "application/json",
+      },
       responseType : "json",
+
     });
+  }
+
+  setAuth(v: string) {
+    this.auth = v;
   }
 
   async get<ResponseData = unknown>(url: string, config: MethodConfig = {}) {
@@ -72,7 +81,11 @@ export class HttpClient {
       const url = `${this.apiUrl}/${this.prefix}${config.url}`;
       const { data: result } = await this.client.request<ResponseData>({
         ...config,
-        method : config.method,
+        method  : config.method,
+        headers : {
+          ...(config.headers || {}),
+          User : this.auth,
+        },
         url,
       });
       return result;

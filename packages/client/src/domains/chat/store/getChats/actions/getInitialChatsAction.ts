@@ -1,6 +1,6 @@
 import type { AppDispatch, AppState, AppThunkContext } from "app/store";
 import reportError from "domains/common/utils/reportError";
-import { ClientChat } from "@chat-app/types";
+import { Chat } from "@chat-app/types";
 import {
   failureGetChats,
   requestGetChats,
@@ -10,7 +10,7 @@ import {
 import { addChatToListAction } from "./addChatToListAction";
 import { selectChatsFilters } from "../chatsSelectors";
 
-export const getInitialChatsAction = (additionalChatId?: ClientChat["id"]) => async (dispatch: AppDispatch, getState: () => AppState, { services }: AppThunkContext) => {
+export const getInitialChatsAction = (additionalChatId?: Chat["id"]) => async (dispatch: AppDispatch, getState: () => AppState, { services }: AppThunkContext) => {
   try {
     dispatch(requestGetChats());
     const state = getState();

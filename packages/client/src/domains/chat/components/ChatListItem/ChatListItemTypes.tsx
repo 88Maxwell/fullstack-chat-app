@@ -1,7 +1,7 @@
-import { ClientChat } from "@chat-app/types";
+import { Chat } from "@chat-app/types";
 
 export interface ChatListItemProps {
-  chat: ClientChat;
+  chat: Chat;
   className?: string;
   selected: boolean;
 }

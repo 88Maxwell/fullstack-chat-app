@@ -27,7 +27,7 @@ export function createPersistedStore(
         serializableCheck : false,
         thunk             : { extraArgument: thunkContext },
       });
-      const socketServiceMiddleware = getSocketServiceMiddleware();
+      const socketServiceMiddleware = getSocketServiceMiddleware(thunkContext);
 
       return defaultMiddleware.concat(routerMiddleware, socketServiceMiddleware);
     },

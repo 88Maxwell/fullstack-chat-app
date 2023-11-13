@@ -1,11 +1,11 @@
 /* eslint-disable arrow-body-style */
-import { ClientChat } from "@chat-app/types";
+import { Chat } from "@chat-app/types";
 import { createSelector } from "@reduxjs/toolkit";
 import type { AppState } from "app/store";
 
 // BASE
 const selectChatsRoot = (state: AppState) => state.chats;
-const selectChatByIdParams = (_: AppState, chatId?: ClientChat["id"]) => chatId;
+const selectChatByIdParams = (_: AppState, chatId?: Chat["id"]) => chatId;
 const selectChatsData = createSelector(selectChatsRoot, (st) => st.data);
 const selectChatsMap = createSelector(selectChatsData, (st) => st.chatsMap);
 export const selectIsChatsLoading = createSelector(selectChatsRoot, (st) => st.status === "pending");

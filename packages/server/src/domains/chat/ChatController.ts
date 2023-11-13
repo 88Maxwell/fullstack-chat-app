@@ -8,10 +8,7 @@ export class ChatController {
   }
 
   public getChats(req: express.Request<GetChatsParams>, res: express.Response<GetChatsResponse>) {
-    const chats = this.chatModel.getChats(req.params.userNameFilter).map((c) => {
-      if (c.user1.id === req?.user?.id) return { ...c, user: c.user2 };
-      return { ...c, user: c.user1 };
-    });
+    const chats = this.chatModel.getChats(req.user.id, req.params.userNameFilter);
 
     res.send({ chats });
 
