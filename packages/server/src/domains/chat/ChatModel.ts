@@ -7,7 +7,7 @@ export default class ChatModel {
   }
 
   getChats(userId: User["id"], userNameFilter?: string) {
-    const chats = this.fakeDb.getChats(userId);
+    const chats = this.fakeDb.getChatsForUser(userId);
 
     if (!userNameFilter) return chats;
 

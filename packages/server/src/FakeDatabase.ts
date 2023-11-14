@@ -1,97 +1,59 @@
 import { v4 as uuidv4 } from "uuid";
 import type { Chat, Message, User } from "@chat-app/types";
-import { botUsers } from "./mockData";
+import UserFakeDatabase from "./domains/user/UserFakeDatabase";
+import ChatFakeDatabase from "./domains/chat/ChatFakeDatabase";
 
 export default class FakeDatabase {
-  private usersMap: Record<User["id"], User> = {};
+  private chatIdToUsersIdsMap: Record<Chat["id"], Record<User["id"], User["id"]>> = {};
 
-  private chatsMap: Record<User["id"], Chat> = {};
+  userFakeDatabase: UserFakeDatabase;
 
-  private userIdToChatIdMap: Record<User["id"], Chat["id"]> = {};
+  chatFakeDatabase: ChatFakeDatabase;
 
-  private chatIdToUsersIdsMap: Record<Chat["id"], User["id"][]> = {};
-
-  constructor() {
-    this.usersMap = botUsers;
-    this.chatsMap = this.getUsers().reduce((acc, u) => ({
-      ...acc,
-      ...this.generateChatsForUser(u),
-    }), {});
-  }
-
-  getUsers() {
-    return Object.values(this.usersMap);
-  }
-
-  getChats(userId: User["id"]) {
-    return Object.values(this.chatsMap)
-      .filter((c) => this.chatIdToUsersIdsMap[c.id].includes(userId))
-      .map((c) => ({ ...c, user: this.getChatUserToInclude(userId, c.id) }));
-  }
-
-  createFakeUser(name?: string) {
-    const id = uuidv4();
-    const user = {
-      id,
-      bio    : "Random user",
-      type   : "human",
-      email  : `${id}@mail.co`,
-      status : "online",
-      name   : name || `${id}-name`,
-    } satisfies User;
-
-    const isExist = this.usersMap[id];
-    if (!isExist) {
-      this.usersMap[id] = user;
-    }
-
-    return user;
-  }
-
-  private generateChatsForUser(user: User) {
-    const users = this.getUsers();
-
-    return users.reduce((acc, u) => {
-      const c = this.createChatBetweenUsers(user, u);
-      if (!c) return acc;
-      return ({ ...acc, [c.id]: c });
-    }, this.chatsMap);
+  constructor(userFakeDatabase:UserFakeDatabase, chatFakeDatabase: ChatFakeDatabase) {
+    this.userFakeDatabase = userFakeDatabase;
+    this.chatFakeDatabase = chatFakeDatabase;
   }
 
   createChatsForUser(user: User) {
-    return Object.values(this.generateChatsForUser(user));
+    const users = this.userFakeDatabase.getUsers();
+    const chats = users.map((u) => {
+      const chatId = this.getExistedChatId(user.id, u.id);
+
+      if (chatId) return this.chatFakeDatabase.getChatById(chatId);
+
+      const chat = this.chatFakeDatabase.createChat();
+      this.chatIdToUsersIdsMap[chat.id] = {
+        [user.id] : u.id,
+        [u.id]    : user.id,
+      };
+      return chat;
+    });
+    return chats;
   }
 
-  createChatBetweenUsers(u1: User, u2: User) {
-    if (u1.id === u2.id) return null;
-    const chatId = uuidv4();
-    this.chatIdToUsersIdsMap[chatId] = [u1.id, u2.id];
-    this.userIdToChatIdMap[u1.id] = chatId;
-    this.userIdToChatIdMap[u2.id] = chatId;
+  private getExistedChatId(userId1: User["id"], userId2: User["id"]) {
+    const chatIdToUsersIdEntry = Object
+      .entries(this.chatIdToUsersIdsMap)
+      .find(([,mapping]) => mapping[userId1] === userId2 && mapping[userId2] === userId1);
 
-    const chat = {
-      id        : chatId,
-      createdAt : Date.now(),
-    };
-
-    return chat;
+    if (!chatIdToUsersIdEntry) return null;
+    return chatIdToUsersIdEntry[0];
   }
 
-  getChatUserToInclude(userId: User["id"], chatId: Chat["id"]) {
-    const isCurrentChat = (this.chatIdToUsersIdsMap[chatId] || []).includes(userId);
-    if (!isCurrentChat) return null;
-    const notCurrentUserId = (this.chatIdToUsersIdsMap[chatId] || []).find((id) => userId !== id);
-    if (!notCurrentUserId) return null;
-    return this.usersMap[notCurrentUserId];
+  getChatsForUser(userId: User["id"]) {
+    const chats = this.chatFakeDatabase.getChats();
+    return chats.map((c) => this.includeUserToChat(c, userId));
   }
 
-  getChatById(userId: User["id"], chatId: Chat["id"]) {
-    const targetChat = this.chatsMap[chatId];
-    return { ...targetChat, user: this.getChatUserToInclude(userId, chatId) };
+  private includeUserToChat(c: Omit<Chat, "user">, userId: User["id"]) {
+    const targetUserId = this.chatIdToUsersIdsMap[c.id][userId];
+    const user = this.userFakeDatabase.getUserById(targetUserId);
+    return { ...c, user };
   }
 
   createMessage(chatId: Chat["id"], senderId: User["id"], text: string) {
-    const sender = this.usersMap[senderId];
+    const sender = this.userFakeDatabase.getUserById(senderId);
     return {
       id        : uuidv4(),
       text,

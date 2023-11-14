@@ -14,7 +14,7 @@ export interface User {
 
 export interface Chat {
   id: string;
-  user?: User | null;
+  user: User;
   createdAt: Timestamp;
 }
 

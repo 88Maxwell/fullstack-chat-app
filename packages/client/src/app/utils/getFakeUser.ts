@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 const getUser = () => ({
   id     : uuidv4(),
   bio    : uuidv4(),
+  type   : "human",
   name   : `Name-${uuidv4()}`.slice(0, 10),
   email  : "fakemail@fake.mail",
   status : "online",

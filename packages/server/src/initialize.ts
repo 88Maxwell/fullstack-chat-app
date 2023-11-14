@@ -4,6 +4,8 @@ import cors from "cors";
 import ChatModel from "domains/chat/ChatModel";
 import { ChatController } from "domains/chat/ChatController";
 import ChatRouter from "domains/chat/ChatRouter";
+import UserFakeDatabase from "domains/user/UserFakeDatabase";
+import ChatFakeDatabase from "domains/chat/ChatFakeDatabase";
 import FakeDatabase from "./FakeDatabase";
 import AppRouter from "./AppRouter";
 
@@ -13,7 +15,9 @@ export function initialize(port: number) {
   const app = express();
   const httpServer = http.createServer(app);
 
-  const fakeDb = new FakeDatabase();
+  const userFakeDatabase = new UserFakeDatabase();
+  const chatFakeDatabase = new ChatFakeDatabase();
+  const fakeDb = new FakeDatabase(userFakeDatabase, chatFakeDatabase);
   const socketService = new SocketService(httpServer, fakeDb);
 
   const chatModel = new ChatModel(fakeDb);
