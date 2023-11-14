@@ -15,14 +15,13 @@ export function useChatSectionController(chat: Chat) {
   const { state: { messages } } = useMessagesCase(chat.id);
 
   const handleChangeDraftMessage = (e: React.ChangeEvent<HTMLInputElement>) => updateDraftMessage(e.target.value);
-  const handleSendMessage = () => sendMessage();
   const handleSendMessageOnKeyDown = (e?: React.KeyboardEvent<HTMLInputElement>) => {
     const isKeyEnter = e?.key === "Enter";
 
     if (!isKeyEnter) return;
     if (!e?.ctrlKey) {
       e?.preventDefault();
-      handleSendMessage();
+      sendMessage();
     } else {
       updateDraftMessage(`${draftMessage}\r\n`);
     }
@@ -36,7 +35,7 @@ export function useChatSectionController(chat: Chat) {
     actions : {
       handleSendMessageOnKeyDown,
       handleChangeDraftMessage,
-      handleSendMessage,
+      handleSendMessage : sendMessage,
     },
   };
 }

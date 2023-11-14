@@ -19,7 +19,11 @@ function ChatSection({ className, chat }: ChatSectionProps) {
       {chat.user ? <UserProfileSection user={chat.user} /> : null}
       <div className={style.messageListContainer}>
         <MessageList className={style.messageList}>
-          {messages.map((m) => <MessageItem key={m.id} className={style.messageItem} own message={m} />)}
+          {messages.map((m) => <MessageItem
+            key={m.id}
+            className={style.messageItem}
+            message={m}
+          />)}
         </MessageList>
       </div>
       <div className={style.newMessageSection}>

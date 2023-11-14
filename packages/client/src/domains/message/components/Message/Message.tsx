@@ -1,20 +1,24 @@
 import clsx from "clsx";
 import { format } from "date-fns";
+import { useCurrentUserCase } from "domains/user/cases/useCurrentUserCase";
 import { MessageProps } from "./MessageTypes";
 import styles from "./Message.module.scss";
 
-function Message({ message, own = false, className }: MessageProps) {
+function Message({ message, className }: MessageProps) {
+  const { state: { user: currentUser } } = useCurrentUserCase();
+  const isOwnMessage = message.sender.id === currentUser?.id;
+
   return (
     <li className={clsx(styles.messageItem, className)}>
       <div className={clsx(styles.message, {
-        [styles.messageOwn]  : own,
-        [styles.messageUser] : !own,
+        [styles.messageOwn]  : isOwnMessage,
+        [styles.messageUser] : !isOwnMessage,
       })}
       >
         <div>
           <div className={clsx(styles.messageHeader, {
-            [styles.messageHeaderOwn]  : own,
-            [styles.messageHeaderUser] : !own,
+            [styles.messageHeaderOwn]  : isOwnMessage,
+            [styles.messageHeaderUser] : !isOwnMessage,
           })}
           >
             <span>
@@ -25,13 +29,13 @@ function Message({ message, own = false, className }: MessageProps) {
             </span>
           </div>
           <div className={clsx(styles.messageBody, {
-            [styles.messageBodyOwn]  : own,
-            [styles.messageBodyUser] : !own,
+            [styles.messageBodyOwn]  : isOwnMessage,
+            [styles.messageBodyUser] : !isOwnMessage,
           })}
           >{message.text}
           </div>
         </div>
-        {message.readAt && own
+        {message.readAt && isOwnMessage
           ? (
             <div className={styles.messageReadAt}>
               Seen {format(message.readAt, "KK:mma")}

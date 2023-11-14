@@ -11,7 +11,7 @@ export interface CreateUserResponse {
 
 export interface GetChatsParams {
   userNameFilter?: string;
-  userStatusFilter?: UserStatus | null;
+  userStatusFilter?: UserStatus;
 }
 
 export interface GetChatsResponse {
@@ -29,7 +29,6 @@ export interface EmitMessageParams {
 }
 
 export interface OnMessageParams {
-  chatId: Chat["id"];
   message: Message
 }
 
@@ -42,11 +41,14 @@ export type SocketEventName =
    "unauthorize";
 
 
-  export interface OnUserAuthorizedParams {
-    chat: Chat;
-  }
-  export interface EmitAuthorizeParams {
-    user: User;
-  }
+export interface OnGoesOfflineParams {
+  userId: User["id"];
+}
+export interface OnUserAuthorizedParams {
+  chat: Chat;
+}
+export interface EmitAuthorizeParams {
+  user: User;
+}
 
   

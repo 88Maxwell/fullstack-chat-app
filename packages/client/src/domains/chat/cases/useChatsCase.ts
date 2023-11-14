@@ -10,7 +10,7 @@ import {
   setStatusFilterAll as setStatusFilterAllAction,
   setStatusFilterOnline as setStatusFilterOnlineAction,
   setChatsUserNameFilter as setChatsUserNameFilterAction,
-} from "../store/getChats";
+} from "../store/chats";
 
 export function useChatsCase() {
   const dispatch = useTypedDispatch();

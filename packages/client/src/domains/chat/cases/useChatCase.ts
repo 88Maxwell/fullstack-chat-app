@@ -1,6 +1,6 @@
 import { useTypedSelector } from "domains/common/hooks/useTypedSelector";
 import { Chat } from "@chat-app/types";
-import { selectChatById } from "../store/getChats";
+import { selectChatById } from "../store/chats";
 
 export function useChatCase(chatId: Chat["id"]) {
   const chat = useTypedSelector((st) => selectChatById(st, chatId));

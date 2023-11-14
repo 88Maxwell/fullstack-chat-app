@@ -8,12 +8,12 @@ const selectMessagesByChatIdParams = (_: AppState, chatId: Chat["id"]) => chatId
 
 export const selectMessagesChatMap = createSelector(selectMessagesRoot, (st) => st.chatMap);
 
-export const selectMessages = createSelector([selectMessagesRoot, selectMessagesByChatIdParams], (st, chatId) => {
-  const targetChat = st.chatMap[chatId];
+export const selectMessages = createSelector(selectMessagesChatMap, selectMessagesByChatIdParams, (chatMap, chatId) => {
+  const targetChatMessageMap = chatMap[chatId];
 
-  if (!targetChat?.data?.messagesMap) return [];
+  if (!targetChatMessageMap) return [];
 
-  const targetMessages = Object.values(targetChat.data.messagesMap);
+  const targetMessages = Object.values(targetChatMessageMap);
 
   return targetMessages.toSorted((a: Message, b: Message) => b.createdAt - a.createdAt);
 });

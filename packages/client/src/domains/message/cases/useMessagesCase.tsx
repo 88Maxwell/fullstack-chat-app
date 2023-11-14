@@ -1,7 +1,7 @@
 import { useTypedSelector } from "domains/common/hooks/useTypedSelector";
 import {
   selectMessages,
-} from "domains/message/store/messages/getMessagesSelectors";
+} from "domains/message/store/messages/messagesSelectors";
 import { Chat } from "@chat-app/types";
 
 export function useMessagesCase(chatId: Chat["id"]) {

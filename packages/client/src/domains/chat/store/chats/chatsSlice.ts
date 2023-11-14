@@ -1,11 +1,12 @@
 /* eslint-disable no-param-reassign, @typescript-eslint/naming-convention */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "@chat-app/types";
 import {
   AddChatToListPayload,
   GetChatsState,
   SuccessGetChatsPayload,
   SetChatsClientNameFilterPayload,
-} from "./getChatsTypes";
+} from "./chatsTypes";
 
 const initialState: GetChatsState = {
   data : {
@@ -55,7 +56,7 @@ export const chatsSlice = createSlice({
     },
 
     setStatusFilterAll(state) {
-      state.data.filters.userStatus = null;
+      delete state.data.filters.userStatus;
     },
 
     setChatsUserNameFilter(state, { payload }: PayloadAction<SetChatsClientNameFilterPayload>) {
@@ -66,6 +67,12 @@ export const chatsSlice = createSlice({
       const { chat } = payload;
 
       state.data.chatsMap[chat.id] = chat;
+    },
+
+    userGoesOffline(state, { payload }: PayloadAction<{ userId: User["id"] }>) {
+      const targetChat = Object.values(state.data.chatsMap).find((c) => c.user.id === payload.userId);
+      if (!targetChat) return;
+      targetChat.user.status = "offline";
     },
   },
 });
@@ -79,4 +86,5 @@ export const {
   setStatusFilterAll,
   setChatsUserNameFilter,
   setChatsStatusSuccess,
+  userGoesOffline,
 } = chatsSlice.actions;

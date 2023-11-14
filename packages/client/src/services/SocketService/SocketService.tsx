@@ -1,6 +1,6 @@
 import io, { Socket } from "socket.io-client";
 import {
-  Cb, EmitAuthorizeParams, EmitMessageParams, OnMessageParams, OnUserAuthorizedParams,
+  Cb, EmitAuthorizeParams, EmitMessageParams, OnGoesOfflineParams, OnMessageParams, OnUserAuthorizedParams,
 } from "@chat-app/types";
 
 export default class SocketService {
@@ -34,8 +34,12 @@ export default class SocketService {
     this.on("authorized", cb);
   }
 
+  onGoesOffline(cb: Cb<OnGoesOfflineParams>) {
+    this.on("goesOffline", cb);
+  }
+
   onMessage(cb: Cb<OnMessageParams>) {
-    this.on("message", cb);
+    this.on("newMessage", cb);
   }
 
   sendMessage(params: EmitMessageParams) {

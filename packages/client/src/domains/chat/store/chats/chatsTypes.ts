@@ -8,7 +8,7 @@ export type GetChatsState = {
     chatsMap: Record<Chat["id"], Chat>;
     filters: {
       userName: string,
-      userStatus: UserStatus | null;
+      userStatus?: UserStatus;
     }
   };
   status: LoadingStatus;

@@ -1,5 +1,6 @@
 import type { AnyAction, Middleware } from "@reduxjs/toolkit";
 import type { AppDispatch, AppThunkContext } from "app/store";
+import { onGoesOfflineAction } from "app/store/socketActions/onGoesOfflineAction";
 import { onMessageAction } from "app/store/socketActions/onMessageAction";
 import { onUserAuthorizedAction } from "app/store/socketActions/onUserAuthorizedAction";
 import { emitCloseAction, emitMessageAction } from "app/store/socketActions/socketEmiterActions";
@@ -14,14 +15,9 @@ export const getSocketServiceMiddleware = (appThunkContext:AppThunkContext): Mid
   const socketService = new SocketService("http://localhost:8002", {
     userId : user.id,
   });
-  socketService.onConnected(() => {
-    console.log("onconnected");
-    socketService.authorize({ user });
-  });
-  socketService.onAuthorized((...args) => {
-    console.log("authorized");
-    customNext(onUserAuthorizedAction(...args));
-  });
+  socketService.onConnected(() => socketService.authorize({ user }));
+  socketService.onAuthorized((...args) => customNext(onUserAuthorizedAction(...args)));
+  socketService.onGoesOffline((...args) => customNext(onGoesOfflineAction(...args)));
   socketService.onMessage((...args) => customNext(onMessageAction(...args)));
   socketService.connect();
 

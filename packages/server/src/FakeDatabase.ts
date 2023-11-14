@@ -10,25 +10,27 @@ export default class FakeDatabase {
 
   chatFakeDatabase: ChatFakeDatabase;
 
-  constructor(userFakeDatabase:UserFakeDatabase, chatFakeDatabase: ChatFakeDatabase) {
+  constructor(userFakeDatabase: UserFakeDatabase, chatFakeDatabase: ChatFakeDatabase) {
     this.userFakeDatabase = userFakeDatabase;
     this.chatFakeDatabase = chatFakeDatabase;
   }
 
   createChatsForUser(user: User) {
     const users = this.userFakeDatabase.getUsers();
-    const chats = users.map((u) => {
-      const chatId = this.getExistedChatId(user.id, u.id);
+    const chats = users
+      .filter((u) => u.id !== user.id)
+      .map((u) => {
+        const chatId = this.getExistedChatId(user.id, u.id);
+        if (chatId) return this.chatFakeDatabase.getChatById(chatId);
 
-      if (chatId) return this.chatFakeDatabase.getChatById(chatId);
+        const chat = this.chatFakeDatabase.createChat();
+        this.chatIdToUsersIdsMap[chat.id] = {
+          [user.id] : u.id,
+          [u.id]    : user.id,
+        };
+        return chat;
+      });
 
-      const chat = this.chatFakeDatabase.createChat();
-      this.chatIdToUsersIdsMap[chat.id] = {
-        [user.id] : u.id,
-        [u.id]    : user.id,
-      };
-      return chat;
-    });
     return chats;
   }
 
@@ -36,19 +38,28 @@ export default class FakeDatabase {
     const chatIdToUsersIdEntry = Object
       .entries(this.chatIdToUsersIdsMap)
       .find(([,mapping]) => mapping[userId1] === userId2 && mapping[userId2] === userId1);
-
     if (!chatIdToUsersIdEntry) return null;
     return chatIdToUsersIdEntry[0];
   }
 
   getChatsForUser(userId: User["id"]) {
-    const chats = this.chatFakeDatabase.getChats();
-    return chats.map((c) => this.includeUserToChat(c, userId));
+    const chats = this.chatFakeDatabase
+      .getAllChats()
+      .filter((c) => !!this.chatIdToUsersIdsMap[c.id][userId])
+      .map((c) => this.includeTargetUserToChat(c, this.chatIdToUsersIdsMap[c.id][userId]));
+    return chats;
   }
 
-  private includeUserToChat(c: Omit<Chat, "user">, userId: User["id"]) {
-    const targetUserId = this.chatIdToUsersIdsMap[c.id][userId];
-    const user = this.userFakeDatabase.getUserById(targetUserId);
+  getChatsWithUser(userId: User["id"]) {
+    const chats = this.chatFakeDatabase
+      .getAllChats()
+      .filter((c) => !!this.chatIdToUsersIdsMap[c.id][userId])
+      .map((c) => this.includeTargetUserToChat(c, userId));
+    return chats;
+  }
+
+  private includeTargetUserToChat(c: Omit<Chat, "user">, userId: User["id"]) {
+    const user = this.userFakeDatabase.getUserById(userId);
     return { ...c, user };
   }
 

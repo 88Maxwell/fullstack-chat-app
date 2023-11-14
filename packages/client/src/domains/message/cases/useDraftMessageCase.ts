@@ -5,14 +5,16 @@ import { emitMessageAction } from "app/store/socketActions/socketEmiterActions";
 import { selectDraftMessageByChatId } from "../store/draftMessage/draftMessageSelectors";
 import { resetDraftMessages as resetDraftMessagesAction, updateDraftMessageByChatId } from "../store/draftMessage";
 
-export function useDraftMessageCase(chatId?: Chat["id"]) {
+export function useDraftMessageCase(chatId: Chat["id"]) {
   const dispatch = useTypedDispatch();
   const draftMessage = useTypedSelector((st) => selectDraftMessageByChatId(st, chatId));
 
   const updateDraftMessage = (messageText: Message["text"]) => chatId && dispatch(updateDraftMessageByChatId({ chatId, text: messageText }));
   const resetDraftMessages = () => dispatch(resetDraftMessagesAction());
   const sendMessage = () => {
-    if (chatId) dispatch(emitMessageAction({ chatId, text: draftMessage }));
+    const isAllCharsAreSpaces = [...draftMessage].every((char) => char === " ");
+    if (isAllCharsAreSpaces || !draftMessage) return;
+    dispatch(emitMessageAction({ chatId, text: draftMessage }));
     updateDraftMessage("");
   };
 

@@ -7,8 +7,11 @@ export class ChatController {
     this.getChats = this.getChats.bind(this);
   }
 
-  public getChats(req: express.Request<GetChatsParams>, res: express.Response<GetChatsResponse>) {
-    const chats = this.chatModel.getChats(req.user.id, req.params.userNameFilter);
+  public getChats(req: express.Request<void, void, void, GetChatsParams>, res: express.Response<GetChatsResponse>) {
+    const chats = this.chatModel.getChats(req.user.id, {
+      userName   : req.query.userNameFilter,
+      userStatus : req.query.userStatusFilter,
+    });
 
     res.send({ chats });
 

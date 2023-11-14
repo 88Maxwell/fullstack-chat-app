@@ -20,4 +20,11 @@ export default class UserFakeDatabase {
     this.usersMap[user.id] = user;
     return user;
   }
+
+  setUserStatus(userId:User["id"], status: User["status"]) {
+    const targetUser = this.usersMap[userId];
+    if (!targetUser) return null;
+    targetUser.status = status;
+    return targetUser;
+  }
 }

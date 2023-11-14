@@ -1,5 +1,5 @@
 import { connectRouter } from "connected-react-router";
-import { chatsSlice } from "domains/chat/store/getChats";
+import { chatsSlice } from "domains/chat/store/chats";
 import { draftMessageSlice } from "domains/message/store/draftMessage";
 import { messagesSlice } from "domains/message/store/messages/messagesSlice";
 import { History } from "history";

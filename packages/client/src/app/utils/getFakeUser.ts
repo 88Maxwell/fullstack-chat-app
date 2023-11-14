@@ -1,21 +1,28 @@
 import { User } from "@chat-app/types";
 import { v4 as uuidv4 } from "uuid";
+import { faker } from "@faker-js/faker";
 
-const getUser = () => ({
-  id     : uuidv4(),
-  bio    : uuidv4(),
-  type   : "human",
-  name   : `Name-${uuidv4()}`.slice(0, 10),
-  email  : "fakemail@fake.mail",
-  status : "online",
-  avatar : {
-    urls : {
-      large : "https://dummyimage.com/170x170/bf64bf/fff.jpg",
-      small : "https://dummyimage.com/60x60/bf64bf/fff.jpg",
+const getUser = () => {
+  const userName = faker.person.fullName();
+  const avatarUrl = faker.internet.avatar();
+  const user = {
+    id     : uuidv4(),
+    bio    : faker.person.bio(),
+    type   : "human",
+    name   : userName,
+    email  : faker.internet.email(),
+    status : "online",
+    avatar : {
+      urls : {
+        large : avatarUrl,
+        small : avatarUrl,
+      },
+      alt : userName,
     },
-    alt : "Echo bot",
-  },
-} satisfies User);
+  } satisfies User;
+
+  return user;
+};
 
 export function getFakeUser() {
   try {

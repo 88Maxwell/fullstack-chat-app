@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@chat-app/types": "*",
+    "@faker-js/faker": "^8.3.1",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.6.1",

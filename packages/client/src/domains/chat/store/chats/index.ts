@@ -8,12 +8,9 @@ export {
   setStatusFilterAll,
   setChatsUserNameFilter,
   setChatsStatusSuccess,
-} from "./getChatsSlice";
+} from "./chatsSlice";
 
-export {
-  getInitialChatsAction,
-  addChatToListAction,
-} from "./actions";
+export { getInitialChatsAction } from "./actions";
 
 export {
   selectChats,

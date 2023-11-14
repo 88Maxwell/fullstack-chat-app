@@ -1,4 +1,4 @@
-import { addChatToList } from "domains/chat/store/getChats";
+import { addChatToList } from "domains/chat/store/chats";
 import { OnUserAuthorizedParams } from "@chat-app/types";
 import { AppDispatch } from "..";
 

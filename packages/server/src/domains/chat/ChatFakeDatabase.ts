@@ -4,7 +4,7 @@ import type { Chat } from "@chat-app/types";
 export default class ChatFakeDatabase {
   private chatsMap: Record<Chat["id"], Omit<Chat, "user">> = {};
 
-  getChats() {
+  getAllChats() {
     return Object.values(this.chatsMap);
   }
 
