@@ -1,8 +1,7 @@
 # Chat app
 
 ## Install
-
-npm run install
+npm install
 
 ## Run
 npm start

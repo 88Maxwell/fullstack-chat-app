@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "install": "concurrently --kill-others \"npm run install:client\" \"npm run install:server\"",
     "start": "concurrently --kill-others \"npm run start:client\" \"npm run start:server\"",
     "start:client": "npm run -w @chat-app/client start",
     "start:server": "npm run -w @chat-app/server start",
