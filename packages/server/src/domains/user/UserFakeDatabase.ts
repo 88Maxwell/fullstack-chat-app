@@ -21,6 +21,10 @@ export default class UserFakeDatabase {
     return user;
   }
 
+  getSpamBot() {
+    return Object.values(this.usersMap).find((u) => u.type === "spam-bot");
+  }
+
   setUserStatus(userId:User["id"], status: User["status"]) {
     const targetUser = this.usersMap[userId];
     if (!targetUser) return null;

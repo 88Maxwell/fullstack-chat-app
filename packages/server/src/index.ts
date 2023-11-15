@@ -1,5 +1,7 @@
-import { initialize } from "./initialize";
+import { AppFacade } from "./AppFacade";
 
 const PORT = process.env.PORT ? +process.env.PORT : 8002;
 
-initialize(PORT);
+const app = new AppFacade(PORT);
+
+app.initialize();

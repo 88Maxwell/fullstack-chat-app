@@ -1,11 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/interface-name-prefix
 interface Socket {
-  on(event: string, callback: (data: any) => void): void;
-  emit(event: string, data: any): void;
+  on(event: string, callback: (data: unknown) => void): void;
+  emit(event: string, data: unknown): void;
 }
-  
+
 declare namespace Express {
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   export interface Request {
     user: {
       id: string;
