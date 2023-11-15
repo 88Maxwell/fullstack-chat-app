@@ -9,7 +9,7 @@ function ChatPage() {
   return (
     <div className={style.container}>
       {chat ? <ChatSection chat={chat} /> : <EmptyChatSection />}
-      <ChatListSection />
+      <ChatListSection className={style.chatListWrapper} />
     </div>
   );
 }

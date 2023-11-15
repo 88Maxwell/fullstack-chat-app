@@ -1,18 +1,35 @@
+@import "../../../common/mixins.scss";
+
 .layout {
   height: 100vh;
+  position: relative;
  }
 
 .header {
+  display: flex;
+  justify-content: space-between;
   height: var(--header-height);
-  padding: 20px 80px;
-  font-size: 24px;
+  padding: 40px 80px 20px;
   background-color: var(--bg-primary-main);
+  & h1 {
+    font-size: 24px;
+  }
+  @include forMobile() {
+    padding: 40px 20px 20px;
+  }
 }
 
 .container {
   display: flex;
   flex-direction: column;
   height: var(--main-height);
-  padding: 20px 80px 48px;
+  padding: 20px 20px 48px;
   background: var(--bg-secondary);
+}
+
+.drawerButton {
+  display: none;
+  @include forMobile() {
+    display: inline-block;
+  } 
 }

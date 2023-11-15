@@ -1,6 +1,6 @@
 .button {
-  min-width: 200px;
   min-height: 36px;
+  padding: 0 16px;
   background-color: var(--primary-main);
   color: white;
   border: none;

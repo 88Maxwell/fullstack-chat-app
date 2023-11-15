@@ -1,6 +1,14 @@
+@import "../../../common/mixins.scss";
+
 .container {
   display: flex;
   flex-grow: 1;
   border-radius: 3px;
   overflow: hidden;
+}
+
+.chatListWrapper {
+  @include forMobile() {
+    display: none;
+  }
 }

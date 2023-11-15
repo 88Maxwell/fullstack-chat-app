@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "cowsay",
+    "start": "concurrently --kill-others \"npm run start:client\" \"npm run start:server:watch\"",
     "start:client": "npm run -w @chat-app/client start",
     "start:server": "npm run -w @chat-app/server start",
+    "start:server:watch": "npm run -w @chat-app/server start:watch",
     "test:client": "npm run -w @chat-app/client test",
     "test:server": "npm run -w @chat-app/client test",
     "build": "tsc && vite build",
@@ -16,5 +17,8 @@
   "license": "ISC",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
