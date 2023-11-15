@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run start:client\" \"npm run start:server:watch\"",
+    "install": "concurrently --kill-others \"npm run install:client\" \"npm run install:server\"",
+    "start": "concurrently --kill-others \"npm run start:client\" \"npm run start:server\"",
     "start:client": "npm run -w @chat-app/client start",
     "start:server": "npm run -w @chat-app/server start",
+    "install:client": "npm run -w @chat-app/client install",
+    "install:server": "npm run -w @chat-app/server install",
     "start:server:watch": "npm run -w @chat-app/server start:watch",
     "test:client": "npm run -w @chat-app/client test",
     "test:server": "npm run -w @chat-app/client test",

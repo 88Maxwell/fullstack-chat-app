@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "install": "npm install",
     "start": "vite",
     "build": "tsc && vite build",
     "test": "npm run test:types && npm run test:lint",
